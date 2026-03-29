@@ -1,0 +1,280 @@
+/* Configurações Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cabeçalho e Navegação */
+header {
+    background-color: #004080;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #aad4ff;
+}
+
+.btn-destaque {
+    background-color: #ff9900;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* Home e Cards */
+.banner {
+    text-align: center;
+    padding: 50px 0;
+    background: linear-gradient(rgba(0, 64, 128, 0.8), rgba(0, 64, 128, 0.8)), url('https://via.placeholder.com/1200x400');
+    background-size: cover;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.grid-seguros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgb(219 232 245 / 80%);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Formulários (Login e Cadastro) */
+.container-centralizado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.caixa-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 20%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-planos {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 50%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-login {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+
+.btn-cadastro {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+
+.btn-carrinho {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    width: 30%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-cliente {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    width: 30%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-controle {
+    display: inline-block;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 30%;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #003d80;
+}
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+/* Estilização do Footer */
+footer {
+    background-color: #001a38;
+    color: white;
+    padding: 40px 0 0 0;
+    margin-top: 50px;
+}
+
+.rodape-conteudo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
+.rodape-secao h3,
+.rodape-secao h4 {
+    margin-bottom: 15px;
+    color: var(--laranja);
+}
+
+.rodape-secao ul {
+    list-style: none;
+}
+
+.rodape-secao ul li {
+    margin-bottom: 8px;
+}
+
+.rodape-secao a {
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.rodape-secao a:hover {
+    color: white;
+}
+
+.rodape-inferior {
+    background-color: #001a38;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

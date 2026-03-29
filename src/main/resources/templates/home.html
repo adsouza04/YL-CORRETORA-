@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YL Seguros | Home</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/planos}">Planos</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="banner">
+            <h2>Bem-vindo à sua Corretora de Seguros</h2>
+            <p>Proteção e tranquilidade para você e sua família.</p>
+        </section>
+
+        <div class="card">
+            <div style="font-size: 50px; margin-bottom: 20px;">🚗</div>
+            <h3>Seguro Auto</h3>
+            <p>Proteção contra roubos, furtos e colisões com assistência 24h.</p>
+            <br>
+            <a th:href="@{/planos}" class="btn">Ver planos</a>
+        </div>
+
+        <div class="card">
+            <div style="font-size: 50px; margin-bottom: 20px;">🏠</div>
+            <h3>Seguro Residencial</h3>
+            <p>Sua casa protegida contra incêndios, danos elétricos e muito mais.</p>
+            <br>
+            <a th:href="@{/planos-residenciais}" class="btn">Ver planos</a>
+        </div>
+
+        <div class="card">
+            <div style="font-size: 50px; margin-bottom: 20px;">👨‍👩‍👧‍👦</div>
+            <h3>Seguro de Vida</h3>
+            <p>Proteção financeira para sua família em caso de imprevistos.</p>
+            <br>
+            <a th:href="@{/planos-vida}" class="btn">Ver planos</a>
+        </div>
+    </main>
+</body>
+
+<footer>
+    <div class="container rodape-conteudo">
+        <div class="rodape-secao">
+            <h3>YL Seguros</h3>
+            <p>Protegendo o que é mais importante para você desde 2024.</p>
+        </div>
+        <div class="rodape-secao">
+            <h4>Links Úteis</h4>
+            <ul>
+                <li><a th:href="@{/planos}">Nossos Planos</a></li>
+                <li><a th:href="@{/login}">Área do Cliente</a></li>
+                <li><a href="#">Privacidade</a></li>
+            </ul>
+        </div>
+        <div class="rodape-secao">
+            <h4>Contato</h4>
+            <p>📞 (11) 9999-9999</p>
+            <p>📧 contato@ylseguros.com.br</p>
+        </div>
+    </div>
+    <div class="rodape-inferior">
+        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</html>

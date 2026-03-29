@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" class="btn-sair">Voltar para Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="margin: 30px 0;">
+            <h2>Olá, Cliente! 👋</h2>
+            <p>Bem-vinda ao seu painel de controle.</p>
+        </div>
+
+        <div class="grid-seguros">
+            <div class="card">
+                <h3>🛡️ Meus Seguros</h3>
+                <p><strong>Seguro Auto Premium</strong></p>
+                <p style="color: green;">● Ativo</p>
+                <button class="btn">Ver Apólice</button>
+            </div>
+
+            <div class="card">
+                <h3>💰 Financeiro</h3>
+                <p>Próxima parcela: 10/04</p>
+                <p>Valor: R$ 159,90</p>
+                <button class="btn">2ª Via Boleto</button>
+            </div>
+
+            <div class="card">
+                <h3>📞 Suporte 24h</h3>
+                <p>Precisa de guincho ou assistência?</p>
+                <button class="btn" style="background-color: #ff8c00;">Acionar Seguro</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

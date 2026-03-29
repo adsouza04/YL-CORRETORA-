@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nossos Planos Residenciais | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center; margin: 40px 0;">
+            <h2>Escolha a Proteção Ideal para sua Casa</h2>
+            <p>Compare nossos planos e escolha o que melhor se adapta às suas necessidades.</p>
+        </div>
+
+        <div class="grid-seguros">
+            <div class="card">
+                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+                    <span style="font-weight: bold; color: #002855;">HABITUAL</span>
+                </div>
+                <h3>R$ 89,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Incêndio e Explosão</li>
+                    <li>✅ Roubo de Bens</li>
+                    <li>❌ Quebra de Vidros </li>
+                    <li>❌ Danos Eletricos</li>
+                    </li>
+                </ul>
+                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+            </div>
+
+            <div class="card">
+                <div
+                    style="background: #ff8c00; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white;">
+                    <span style="font-weight: bold;">VERANEIO</span>
+                </div>
+                <h3>R$ 159,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Roubo ou furto</li>
+                    <li>✅ Danos elétricos</li>
+                    <li>✅ Incêndio e explosão</li>
+                    <li>✅ Quebra de Vidros</li>
+                </ul>
+                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+            </div>
+
+            <div class="card">
+                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+                    <span style="font-weight: bold; color: #002855;">PREMIUM</span>
+                </div>
+                <h3>R$ 249,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Roubo de bens</li>
+                    <li>✅ Equipamentos esportivos e instrumentos musicais</li>
+                    <li>✅ Joias e Relógios</li>
+                    <li>✅ Incêndio e explosão</li>
+                    <li>✅ Obras e objetos de arte</li>
+
+                </ul>
+                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+<footer>
+    <div class="container rodape-conteudo">
+        <div class="rodape-secao">
+            <h3>YL Seguros</h3>
+            <p>Protegendo o que é mais importante para você desde 2024.</p>
+        </div>
+        <div class="rodape-secao">
+            <h4>Links Úteis</h4>
+            <ul>
+                <li><a th:href="@{/planos}">Nossos Planos</a></li>
+                <li><a th:href="@{/login}">Área do Cliente</a></li>
+                <li><a href="#">Privacidade</a></li>
+            </ul>
+        </div>
+        <div class="rodape-secao">
+            <h4>Contato</h4>
+            <p>📞 (11) 9999-9999</p>
+            <p>📧 contato@ylseguros.com.br</p>
+        </div>
+    </div>
+    <div class="rodape-inferior">
+        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</html>

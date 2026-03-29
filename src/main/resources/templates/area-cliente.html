@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Área do Cliente | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="margin: 30px 0;">
+            <h2>Olá, <span th:text="${usuario.nome}">Visitante</span>! 👋</h2>
+            <p>Bem-vinda ao seu painel de controle.</p>
+        </div>
+
+        <div class="grid-seguros">
+            <div class="card" style="text-align: left;">
+                <h4>🛡️ Meus Seguros</h4>
+                <hr>
+                <div style="margin-top: 15px;">
+                    <p><strong>Seguro Auto Premium</strong></p>
+                    <p style="font-size: 0.8rem; color: green;">● Ativo</p>
+                </div>
+                <button class="btn-cliente" style="margin-top: 15px; font-size: 0.8rem;">Ver Apólice</button>
+            </div>
+
+            <div class="card" style="text-align: left;">
+                <h4>💰 Financeiro</h4>
+                <hr>
+                <div style="margin-top: 15px;">
+                    <p>Próxima parcela: 10/04</p>
+                    <p>Valor: R$ 159,90</p>
+                </div>
+                <button class="btn-cliente" style="margin-top: 15px; font-size: 0.8rem;">2ª Via Boleto</button>
+            </div>
+
+            <div class="card" style="text-align: left;">
+                <h4>📞 Suporte 24h</h4>
+                <hr>
+                <p style="margin-top: 15px;">Precisa de guincho ou assistência?</p>
+                <button class="btn-cliente" style="margin-top: 15px; background: #ff8c00;">Acionar Seguro</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Protegendo o que é mais importante para você desde 2024.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a th:href="@{/planos}">Nossos Planos</a></li>
+                    <li><a th:href="@{/login}">Área do Cliente</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                </ul>
+            </div>
+            <div class="rodape-secao">
+                <h4>Contato</h4>
+                <p>📞 (11) 9999-9999</p>
+                <p>📧 contato@ylseguros.com.br</p>
+            </div>
+        </div>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

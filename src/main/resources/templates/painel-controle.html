@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Painel ADM | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros - Administração</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" class="btn-sair">Voltar para Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="margin: 30px 0;">
+            <h2>Bem-vindo ao Painel de Controle 🔐</h2>
+            <p>Gerenciamento estratégico do sistema.</p>
+        </div>
+
+        <div class="grid-seguros">
+            <div class="card">
+                <h3>👥 Clientes</h3>
+                <p>Visualize e gerencie todos os usuários do sistema.</p>
+                <button class="btn-controle">Listar Usuários</button>
+            </div>
+
+            <div class="card">
+                <h3>🛡️ Planos</h3>
+                <p>Edite valores e coberturas dos seguros oferecidos.</p>
+                <button class="btn-controle">Configurar</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nossos Planos Auto | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center; margin: 40px 0;">
+            <h2>Escolha a Proteção Ideal para o seu Carro</h2>
+            <p>Compare nossos planos e escolha o que melhor se adapta às suas necessidades.</p>
+        </div>
+
+        <div class="grid-seguros">
+            <div class="card">
+                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+                    <span style="font-weight: bold; color: #002855;">BÁSICO</span>
+                </div>
+                <h3>R$ 89,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Roubo e Furto</li>
+                    <li>✅ Assistência 24h</li>
+                    <li>❌ Danos a Terceiros</li>
+                    <li>❌ Carro Reserva</li>
+                </ul>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Plano Básico">
+                    <input type="hidden" name="preco" value="89.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <div
+                    style="background: #ff8c00; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white;">
+                    <span style="font-weight: bold;">ESSENCIAL</span>
+                </div>
+                <h3>R$ 159,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Cobertura Compreensiva</li>
+                    <li>✅ Assistência 24h</li>
+                    <li>✅ Danos a Terceiros</li>
+                    <li>✅ Carro reserva (07 dias)</li>
+                </ul>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Plano Essencial">
+                    <input type="hidden" name="preco" value="159.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
+                    <span style="font-weight: bold; color: #002855;">COMPLETO</span>
+                </div>
+                <h3>R$ 249,90<small>/mês</small></h3>
+                <hr>
+                <ul style="list-style: none; padding: 20px 0; text-align: left;">
+                    <li>✅ Todos os benefícios</li>
+                    <li>✅ Carro Reserva (30 dias)</li>
+                    <li>✅ KM Ilimitado</li>
+                    <li>✅ Carta verde</li>
+                </ul>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Plano Completo">
+                    <input type="hidden" name="preco" value="249.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Protegendo o que é mais importante para você desde 2024.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a th:href="@{/planos}">Nossos Planos</a></li>
+                    <li><a th:href="@{/login}">Área do Cliente</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                </ul>
+            </div>
+            <div class="rodape-secao">
+                <h4>Contato</h4>
+                <p>📞 (11) 9999-9999</p>
+                <p>📧 contato@ylseguros.com.br</p>
+            </div>
+        </div>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
