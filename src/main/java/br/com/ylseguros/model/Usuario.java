@@ -12,7 +12,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Mudamos de public para private
+    private Long id;
 
     private String nome;
     private String email;

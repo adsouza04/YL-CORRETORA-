@@ -20,4 +20,14 @@ public class HomeController {
     public String login() {
         return "login";
     }
+
+    @GetMapping("/planos-residenciais")
+    public String planoResidencial() {
+        return "plano-residencial";
+    }
+
+    @GetMapping("/planos-vida")
+    public String planoVida() {
+        return "plano-vida";
+    }
 }
