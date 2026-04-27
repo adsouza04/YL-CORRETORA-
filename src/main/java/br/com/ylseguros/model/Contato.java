@@ -19,11 +19,9 @@ public class Contato {
     private String mensagem;
     private LocalDateTime dataEnvio;
 
-    // Construtor padrão
     public Contato() {
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

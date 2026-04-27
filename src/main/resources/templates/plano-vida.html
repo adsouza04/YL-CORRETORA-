@@ -41,7 +41,11 @@
                     <li>❌ Despesas médicas</li>
                     <li>❌ Telemedicina 24h</li>
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Vida On">
+                    <input type="hidden" name="preco" value="89.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
 
             <div class="card">
@@ -58,7 +62,11 @@
                     <li>✅ Despesas médicas e odontológicas</li>
                     <li>✅ Diária por incapacidade temporária</li>
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Vida Do Seu Jeito">
+                    <input type="hidden" name="preco" value="159.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
 
             <div class="card">
@@ -74,7 +82,11 @@
                     <li>✅ Coberturas básicas nivelado para todas as idades</li>
                     <li>✅ Diária por incapacidade temporária</li>
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Vida Presente">
+                    <input type="hidden" name="preco" value="249.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
         </div>
     </main>
@@ -91,7 +103,6 @@
             <ul>
                 <li><a th:href="@{/planos}">Nossos Planos</a></li>
                 <li><a th:href="@{/login}">Área do Cliente</a></li>
-                <li><a href="#">Privacidade</a></li>
             </ul>
         </div>
         <div class="rodape-secao">

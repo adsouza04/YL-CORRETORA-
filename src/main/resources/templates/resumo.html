@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resumo da Proposta | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        .tabela-resumo {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .tabela-resumo td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-nome {
+            font-weight: bold;
+            color: #002855;
+        }
+
+        .item-preco {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-form" style="max-width: 600px; margin: 50px auto;">
+            <h2>📋 Resumo da sua Proposta</h2>
+            <p>Confira os detalhes antes de prosseguir com seus dados.</p>
+            <hr>
+
+            <table class="tabela-resumo">
+                <tbody>
+                    <tr th:each="item : ${itens}">
+                        <td class="item-nome" th:text="${item.nomePlano}"></td>
+                        <td class="item-preco" th:text="'R$ ' + ${#numbers.formatDecimal(item.preco, 1, 2, 'POINT')}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="text-align: right; margin-bottom: 30px;">
+                <h3 style="color: #28a745;">Total Mensal:
+                    <span th:text="'R$ ' + ${#numbers.formatDecimal(total, 1, 2, 'POINT')}"></span>
+                </h3>
+            </div>
+
+            <form th:action="@{/carrinho/dados-pessoais}" method="GET">
+
+                <div th:if="${temSeguroAuto}" class="campo"
+                    style="background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                    <label style="color: #d9534f; font-weight: bold;">🚗 Identificamos Seguro Auto!</label>
+                    <p style="font-size: 0.85rem; margin-bottom: 10px;">Por favor, informe a placa do veículo para
+                        prosseguir:</p>
+                    <input type="text" name="placa" placeholder="BRA2E19" required
+                        style="text-transform: uppercase; font-size: 1.1rem; text-align: center; letter-spacing: 2px;">
+                </div>
+
+                <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <a th:href="@{/carrinho}" style="color: #666; text-decoration: none;">Voltar ao carrinho</a>
+                    <button type="submit" class="btn-destaque"
+                        style="padding: 15px 30px; border: none; cursor: pointer;">
+                        Dados Pessoais
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

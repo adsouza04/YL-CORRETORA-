@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>YL Seguros - Gestão de Clientes</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+</head>
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros - Administração</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/admin/painel}">⬅️ Voltar ao Painel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-lista" style="margin-top: 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            <h2>👥 Clientes Cadastrados</h2>
+            <p style="color: #666; margin-bottom: 20px;">Gerenciamento de usuários e consulta de seguros contratados.</p>
+            <hr style="opacity: 0.1; margin-bottom: 25px;">
+
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: #0046c0; color: white;">
+                        <th style="padding: 15px; border-radius: 8px 0 0 0;">Nome</th>
+                        <th style="padding: 15px;">E-mail</th>
+                        <th style="padding: 15px;">Telefone</th>
+                        <th style="padding: 15px;">Perfil</th>
+                        <th style="padding: 15px; border-radius: 0 8px 0 0; text-align: center;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${usuarios}" style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px; font-weight: 500;" th:text="${u.nome}"></td>
+                        <td style="padding: 15px;" th:text="${u.email}"></td>
+                        <td style="padding: 15px;" th:text="${u.telefone}"></td>
+                        <td style="padding: 15px;">
+                            <span th:text="${u.perfil}" 
+                                  th:style="${u.perfil == 'ADM' ? 'color: #d9534f; font-weight: bold;' : 'color: #28a745;'}">
+                            </span>
+                        </td>
+                        <td style="padding: 15px; text-align: center;">
+                            <a th:href="@{/admin/usuarios/seguros/{email}(email=${u.email})}" 
+                               class="btn-detalhes" 
+                               style="background: #f0f4ff; color: #0046c0; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 0.85rem;">
+                                📄 Ver Seguros
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div th:if="${#lists.isEmpty(usuarios)}" style="padding: 40px; text-align: center; color: #888;">
+                Nenhum usuário encontrado no sistema.
+            </div>
+        </div>
+    </main>
+</body>
+</html>

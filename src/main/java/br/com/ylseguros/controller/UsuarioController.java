@@ -1,6 +1,5 @@
 package br.com.ylseguros.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.ylseguros.model.ItemCarrinho;
 import br.com.ylseguros.model.Usuario;
+import br.com.ylseguros.model.Apolice;
+import br.com.ylseguros.repository.ApoliceRepository;
 import br.com.ylseguros.repository.ItemCarrinhoRepository;
 import br.com.ylseguros.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 @Controller
 public class UsuarioController {
@@ -23,7 +27,10 @@ public class UsuarioController {
     @Autowired
     private ItemCarrinhoRepository itemCarrinhoRepository;
 
-    @GetMapping("/cadastro-cliente")
+    @Autowired
+    private ApoliceRepository apoliceRepository;
+
+    @GetMapping("/cadastro")
     public String exibirCadastro(Model model) {
         model.addAttribute("usuario", new Usuario());
         return "cadastro-cliente";
@@ -37,38 +44,25 @@ public class UsuarioController {
             return "redirect:/login";
         } catch (RuntimeException e) {
             attr.addFlashAttribute("erro", e.getMessage());
-            return "redirect:/cadastro-cliente";
+            return "redirect:/cadastro";
         }
     }
 
-    // ÚNICA ROTA DASHBOARD DO PROJETO
-    @GetMapping("/dashboard")
-    public String exibirDashboard(Model model) {
-        return "area-cliente";
-    }
+    @GetMapping("/minha-conta")
+    public String exibirMinhaConta(HttpSession session, Model model) {
+        String email = (String) session.getAttribute("usuarioLogado");
+        String nomeReal = (String) session.getAttribute("nomeUsuario");
 
-    @PostMapping("/efetuarLogin")
-    public String login(@RequestParam String email, @RequestParam String senha, Model model, RedirectAttributes attr) {
-        Usuario userLogado = usuarioService.realizarLogin(email, senha);
-
-        if (userLogado != null) {
-            if ("ADM".equals(userLogado.getPerfil())) {
-                return "redirect:/admin/painel";
-            }
-            model.addAttribute("usuario", userLogado);
-            return "area-cliente";
-        } else {
-            attr.addFlashAttribute("erro", "Email ou senha inválidos!");
+        if (email == null) {
             return "redirect:/login";
         }
+
+        model.addAttribute("usuarioNome", nomeReal);
+        model.addAttribute("apolices", apoliceRepository.findByUsuarioEmail(email));
+
+        return "minha-conta";
     }
 
-    @GetMapping("/admin/painel")
-    public String exibirPainelAdm() {
-        return "painel-controle";
-    }
-
-    // Rota para ADICIONAR item ao carrinho (Banco de Dados)
     @PostMapping("/adicionar-item")
     public String adicionarItem(@RequestParam String nome, @RequestParam Double preco) {
         ItemCarrinho novoItem = new ItemCarrinho(nome, preco);
@@ -76,16 +70,59 @@ public class UsuarioController {
         return "redirect:/carrinho";
     }
 
-    // Rota para EXIBIR a lista do carrinho
-    @GetMapping("/carrinho")
-    public String mostrarCarrinho(Model model) {
-        List<ItemCarrinho> lista = itemCarrinhoRepository.findAll();
-        model.addAttribute("itens", lista);
+    @GetMapping("/carrinho/dados-pessoais")
+    public String formularioCotacao() {
+        return "formulario-cotacao";
+    }
 
-        // Soma o total de todos os itens no carrinho
-        Double total = lista.stream().mapToDouble(ItemCarrinho::getPreco).sum();
-        model.addAttribute("totalGeral", total);
+    @GetMapping("/meus-dados")
+    public String exibirDadosPessoais(HttpSession session, Model model) {
+        String email = (String) session.getAttribute("usuarioLogado");
 
-        return "carrinho";
+        if (email == null) {
+            return "redirect:/login";
+        }
+
+        Usuario usuario = usuarioService.buscarPorEmail(email);
+        List<Apolice> apolices = apoliceRepository.findByUsuarioEmail(email);
+
+        if (usuario != null) {
+            model.addAttribute("usuario", usuario);
+        }
+
+        if (!apolices.isEmpty()) {
+            model.addAttribute("dados", apolices.get(0));
+        } else {
+            model.addAttribute("dados", new Apolice());
+        }
+
+        return "dados-pessoais";
+    }
+
+    @PostMapping("/meus-dados/atualizar")
+    public String atualizarDados(@RequestParam String email,
+            @RequestParam String nome,
+            @RequestParam String telefone,
+            HttpSession session,
+            RedirectAttributes attr) {
+        try {
+            Usuario usuario = usuarioService.buscarPorEmail(email);
+
+            if (usuario != null) {
+                usuario.setNome(nome);
+                usuario.setTelefone(telefone);
+
+                usuarioService.salvarUsuario(usuario);
+
+                session.setAttribute("nomeUsuario", nome);
+                attr.addFlashAttribute("mensagem", "Dados atualizados com sucesso!");
+            }
+
+            return "redirect:/meus-dados";
+
+        } catch (Exception e) {
+            attr.addFlashAttribute("erro", "Erro ao atualizar: " + e.getMessage());
+            return "redirect:/meus-dados";
+        }
     }
 }

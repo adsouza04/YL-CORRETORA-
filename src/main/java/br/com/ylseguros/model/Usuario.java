@@ -17,15 +17,13 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-
     private String perfil;
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
-
+    private String telefone;
+    private String cep;
+    private String cpf;
+    private String numero;
+    private String complemento;
+    private String logradouro;
+    private String bairro;
+    private String cidade;
 }

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>YL Seguros | Identificar Veículo</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+
+    <style>
+        .container-porto {
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 20px;
+        }
+
+        .titulo-porto {
+            color: #0046c0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo-porto {
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .input-placa {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 0;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-placa:focus {
+            border-bottom-color: #0046c0;
+        }
+
+        /* Container para os botões */
+        .acoes-form {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-porto {
+            width: 100%;
+            background-color: #0046c0;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        /* Estilo do Botão Voltar */
+        .btn-voltar {
+            color: #0046c0;
+            background: transparent;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .btn-voltar:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilo para o Card de confirmação que estava no seu JS */
+        #cardConfirmacao {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f4f7fb;
+            border-radius: 8px;
+            border-left: 5px solid #0046c0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-porto">
+        <h1 class="titulo-porto">Qual a placa do veículo que você quer proteger?</h1>
+        <p class="subtitulo-porto">Com a placa, os dados do veículo são preenchidos automaticamente.</p>
+
+        <form th:action="@{/carrinho/add}" method="POST">
+            <input type="hidden" name="nome" th:value="${nome}">
+            <input type="hidden" name="preco" th:value="${preco}">
+
+            <label style="color: #999; font-size: 0.9rem;">Placa do veículo</label>
+            <input type="text" id="campoPlaca" name="placa" class="input-placa" placeholder="ABC1E23" maxlength="7"
+                required autofocus>
+
+            <div id="cardConfirmacao" style="display: none;">
+                <p id="textoModelo" style="margin: 0; font-weight: bold;"></p>
+                <p id="textoDetalhes" style="margin: 5px 0 0 0; font-size: 0.85rem; color: #555;"></p>
+            </div>
+
+            <div class="acoes-form">
+                <button type="submit" class="btn-porto">Continuar</button>
+
+                <a th:href="@{/planos}" class="btn-voltar">Voltar para planos</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const inputPlaca = document.getElementById('campoPlaca');
+        const card = document.getElementById('cardConfirmacao');
+        const modeloTexto = document.getElementById('textoModelo');
+        const detalhesTexto = document.getElementById('textoDetalhes');
+
+        const placasExemplo = {
+            "EYC1E83": { modelo: "VOLKSWAGEN NOVO FOX", detalhes: "1.6 8V TOTAL FLEX | 2011/2012" },
+            "ABC1234": { modelo: "HONDA CIVIC SEDAN", detalhes: "2.0 i-VTEC FLEX | 2020/2021" },
+            "BRA2E19": { modelo: "TOYOTA COROLLA", detalhes: "1.8 VVT-i HYBRID | 2023/2024" },
+            "POR2026": { modelo: "PORSCHE 911 CARRERA", detalhes: "3.0 Bi-Turbo | 2025/2026" }
+        };
+
+        inputPlaca.addEventListener('input', function () {
+            let placaDigitada = this.value.toUpperCase().replace("-", "");
+
+            if (placaDigitada.length === 7) {
+                if (placasExemplo[placaDigitada]) {
+                    modeloTexto.innerText = placasExemplo[placaDigitada].modelo;
+                    detalhesTexto.innerText = placasExemplo[placaDigitada].detalhes;
+                } else {
+                    modeloTexto.innerText = "VEÍCULO NÃO IDENTIFICADO";
+                    detalhesTexto.innerText = "Dados não encontrados na base simplificada.";
+                }
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

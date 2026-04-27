@@ -41,7 +41,11 @@
                     <li>❌ Danos Eletricos</li>
                     </li>
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Residencial Habitual">
+                    <input type="hidden" name="preco" value="89.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
 
             <div class="card">
@@ -57,7 +61,11 @@
                     <li>✅ Incêndio e explosão</li>
                     <li>✅ Quebra de Vidros</li>
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Residencial Veraneio">
+                    <input type="hidden" name="preco" value="159.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
 
             <div class="card">
@@ -74,7 +82,11 @@
                     <li>✅ Obras e objetos de arte</li>
 
                 </ul>
-                <a th:href="@{/carrinho}" class="btn-planos">Selecionar</a>
+                <form th:action="@{/adicionar-item}" method="post">
+                    <input type="hidden" name="nome" value="Residencial Premium">
+                    <input type="hidden" name="preco" value="249.90">
+                    <button type="submit" class="btn-planos">Selecionar</button>
+                </form>
             </div>
         </div>
     </main>
@@ -91,7 +103,6 @@
             <ul>
                 <li><a th:href="@{/planos}">Nossos Planos</a></li>
                 <li><a th:href="@{/login}">Área do Cliente</a></li>
-                <li><a href="#">Privacidade</a></li>
             </ul>
         </div>
         <div class="rodape-secao">

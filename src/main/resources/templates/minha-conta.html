@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Conta | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        .dashboard-container {
+            display: flex;
+            max-width: 1100px;
+            margin: 40px auto;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            color: #0046c0;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            display: block;
+            padding: 8px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #0046c0;
+            color: white;
+        }
+
+        .conteudo-principal {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .perfil-resumo {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .card-apolice {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .card-apolice:hover {
+            transform: scale(1.01);
+            border-color: #0046c0;
+        }
+
+        .status-ativo {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}" class="btn-destaque" style="background-color: #ff9800;">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Olá, <span th:text="${usuarioNome}">Usuário</span></h2>
+            <ul>
+                <li><a th:href="@{/minha-conta}" class="active">📑 Minhas Apólices</a></li>
+                <a th:href="@{/meus-dados}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person-fill"></i>👤 Dados Pessoais
+                </a>
+                <li><a th:href="@{/ajuda}">❓ Ajuda e Suporte</a></li>
+            </ul>
+        </aside>
+
+        <section class="conteudo-principal">
+            <div class="perfil-resumo">
+                <h2 style="color: #333;">Meus Seguros Ativos</h2>
+                <p>Gerencie suas coberturas e documentos aqui.</p>
+            </div>
+
+            <div th:each="apolice : ${apolices}" class="card-apolice">
+                <div>
+                    <strong style="display: block; font-size: 1.1rem;" th:text="${apolice.nomeProduto}">Seguro Auto
+                        Individual</strong>
+                    <span style="color: #777; font-size: 0.9rem;"
+                        th:text="'Vigência: ' + ${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')} + ' a 2027'">Vigência</span>
+                </div>
+                <div style="text-align: right;">
+                    <span class="status-ativo">Ativo</span>
+                    <a href="#"
+                        style="display: block; margin-top: 10px; color: #0046c0; font-size: 0.85rem; text-decoration: none; font-weight: bold;">⬇
+                        Baixar PDF</a>
+                </div>
+            </div>
+
+            <div th:if="${#lists.isEmpty(apolices)}" style="text-align: center; padding: 40px;">
+                <p style="color: #999; font-size: 1.1rem;">Você ainda não possui apólices cadastradas.</p>
+                <a th:href="@{/home}" style="color: #0046c0; text-decoration: underline;">Ver planos disponíveis</a>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

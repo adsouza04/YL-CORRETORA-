@@ -16,11 +16,6 @@ public class HomeController {
         return "planos";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
     @GetMapping("/planos-residenciais")
     public String planoResidencial() {
         return "plano-residencial";

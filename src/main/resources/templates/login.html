@@ -7,64 +7,50 @@
     <link rel="stylesheet" th:href="@{/estilo.css}">
 </head>
 
-<header>
-    <div class="container topo">
-        <h1>YL Seguros</h1>
-        <nav>
-            <ul>
-                <li><a th:href="@{/home}">Home</a></li>
-                <li><a th:href="@{/planos}">Planos</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
 <body>
-    <div class="container-centralizado">
-        <div class="caixa-form">
-            <h2>Acesse sua Conta</h2>
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/planos}">Planos</a></li>
+                    <li><a th:href="@{/carrinho}">Carrinho</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-form" style="max-width: 400px; margin: 50px auto;">
+            <h2 style="text-align: center;">Acesse sua Conta</h2>
 
             <form th:action="@{/efetuarLogin}" method="post">
                 <div class="campo">
                     <label>E-mail</label>
                     <input type="email" name="email" placeholder="email@exemplo.com" required>
                 </div>
+
                 <div class="campo">
                     <label>Senha</label>
                     <input type="password" name="senha" placeholder="Sua senha" required>
                 </div>
-                <button type="submit" class="btn-login">Entrar</button>
+
+                <p th:if="${erro}" th:text="${erro}" style="color: red; text-align: center;"></p>
+                <p th:if="${param.erro}" style="color: red; text-align: center;">E-mail ou senha incorretos.</p>
+
+                <button type="submit" class="btn-destaque" style="width: 100%; border: none; cursor: pointer;">
+                    Entrar
+                </button>
             </form>
 
-            <p>Ainda não tem conta? <a th:href="@{/cadastro-cliente}">Cadastre-se aqui</a></p> <br>
-            <a th:href="@{/home}">Voltar para Home</a>
+            <div style="margin-top: 20px; text-align: center; font-size: 0.9rem;">
+                <p>Ainda não tem conta? <a th:href="@{/cadastro}">Cadastre-se aqui</a></p>
+                <br>
+                <a th:href="@{/home}" style="color: #002855;">Voltar para Home</a>
+            </div>
         </div>
-    </div>
+    </main>
 </body>
-
-<footer>
-    <div class="container rodape-conteudo">
-        <div class="rodape-secao">
-            <h3>YL Seguros</h3>
-            <p>Protegendo o que é mais importante para você desde 2024.</p>
-        </div>
-        <div class="rodape-secao">
-            <h4>Links Úteis</h4>
-            <ul>
-                <li><a th:href="@{/planos}">Nossos Planos</a></li>
-                <li><a th:href="@{/login}">Área do Cliente</a></li>
-                <li><a href="#">Privacidade</a></li>
-            </ul>
-        </div>
-        <div class="rodape-secao">
-            <h4>Contato</h4>
-            <p>📞 (11) 9999-9999</p>
-            <p>📧 contato@ylseguros.com.br</p>
-        </div>
-    </div>
-    <div class="rodape-inferior">
-        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
-    </div>
-</footer>
 
 </html>

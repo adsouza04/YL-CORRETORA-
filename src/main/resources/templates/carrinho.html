@@ -5,6 +5,38 @@
     <meta charset="UTF-8">
     <title>Meu Carrinho | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        .tabela-carrinho {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+        }
+
+        .tabela-carrinho th,
+        .tabela-carrinho td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tabela-carrinho th {
+            background-color: #002855;
+            color: white;
+        }
+
+        .btn-excluir {
+            color: #ff4d4d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .total-container {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,39 +53,60 @@
     </header>
 
     <main class="container">
-        <div class="caixa-form" style="max-width: 800px; margin: 50px auto;">
+        <div class="caixa-form" style="max-width: 850px; margin: 50px auto;">
             <h2>🛒 Seu Carrinho de Seguros</h2>
             <hr>
-            <p>Você ainda não possui simulações salvas.</p>
-            <br>
-            <a th:href="@{/home}" class="btn-carrinho">Continuar Navegando</a>
+
+            <div th:if="${#lists.isEmpty(itens)}" style="text-align:center; padding:20px;">
+                <p>Você ainda não possui simulações salvas.</p>
+                <br>
+                <a th:href="@{/home}" class="btn-carrinho">Ver nossos planos</a>
+            </div>
+
+            <div th:if="${not #lists.isEmpty(itens)}">
+                <table class="tabela-carrinho">
+                    <thead>
+                        <tr>
+                            <th>Plano Selecionado</th>
+                            <th>Preço Mensal</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${itens}">
+                            <td th:text="${item.nomePlano}"></td>
+                            <td th:text="'R$ ' + ${#numbers.formatDecimal(item.preco, 1, 2, 'POINT')}"></td>
+                            <td>
+                                <a th:href="@{/carrinho/remover/{id}(id=${item.id})}" class="btn-excluir">🗑️
+                                    Remover</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="total-container">
+                    <strong>Total Mensal: </strong>
+                    <span th:text="'R$ ' + ${#numbers.formatDecimal(total, 1, 2, 'POINT')}"
+                        style="color:#28a745; font-weight:bold;">
+                    </span>
+                </div>
+
+                <div style="margin-top:30px; display:flex; justify-content:space-between;">
+
+                    <a th:href="@{/carrinho/limpar}" class="btn-carrinho"
+                        style="background-color:#666; text-decoration:none; padding:10px 20px; color:white; border-radius:5px;">
+                        Refazer simulação
+                    </a>
+
+                    <a th:href="@{/carrinho/resumo}" class="btn-destaque"
+                        style="padding:15px 25px; text-decoration:none;">
+                        Finalizar Proposta
+                    </a>
+
+                </div>
+            </div>
         </div>
     </main>
 </body>
-
-<footer>
-    <div class="container rodape-conteudo">
-        <div class="rodape-secao">
-            <h3>YL Seguros</h3>
-            <p>Protegendo o que é mais importante para você desde 2024.</p>
-        </div>
-        <div class="rodape-secao">
-            <h4>Links Úteis</h4>
-            <ul>
-                <li><a th:href="@{/planos}">Nossos Planos</a></li>
-                <li><a th:href="@{/login}">Área do Cliente</a></li>
-                <li><a href="#">Privacidade</a></li>
-            </ul>
-        </div>
-        <div class="rodape-secao">
-            <h4>Contato</h4>
-            <p>📞 (11) 9999-9999</p>
-            <p>📧 contato@ylseguros.com.br</p>
-        </div>
-    </div>
-    <div class="rodape-inferior">
-        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
-    </div>
-</footer>
 
 </html>

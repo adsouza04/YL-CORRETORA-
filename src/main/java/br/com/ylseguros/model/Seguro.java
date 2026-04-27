@@ -17,7 +17,7 @@ public class Seguro {
 
     @Column(nullable = false)
     private String nome;
-    private String categoria; // Ex: Automotivo, Residencial, Vida
+    private String categoria;
     private Double valorMensal;
 
     @Column(length = 500)

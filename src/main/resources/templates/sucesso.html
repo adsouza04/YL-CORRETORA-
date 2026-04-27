@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>YL Seguros | Pagamento Confirmado</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        .container-sucesso {
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .icon-check {
+            width: 80px;
+            height: 80px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+        }
+
+        .titulo-sucesso {
+            color: #0046c0;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .resumo-compra {
+            text-align: left;
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .resumo-compra h3 {
+            font-size: 1.2rem;
+            color: #0046c0;
+            border-bottom: 2px solid #0046c0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item-resumo {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .item-resumo:last-of-type {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .valor {
+            color: #333;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .total-final {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0046c0;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #0046c0 !important;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-home {
+            display: inline-block;
+            background-color: #0046c0;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-home:hover {
+            background-color: #003591;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/planos}">Planos</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Minha Conta</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-sucesso">
+        <div class="icon-check">✓</div>
+        <h1 class="titulo-sucesso">Pagamento Confirmado!</h1>
+        <p>Sua apólice está sendo gerada.</p>
+
+        <div class="resumo-compra">
+            <h3>Resumo da Apólice</h3>
+
+            <div class="item-resumo">
+                <span class="label">Segurado:</span>
+                <span class="valor" th:text="${nomeCliente}">Nome do Cliente</span>
+            </div>
+
+            <div class="item-resumo">
+                <span class="label">Produto:</span>
+                <span class="valor" th:text="${nomeProduto}">Seguro Selecionado</span>
+            </div>
+
+            <div class="item-resumo">
+                <span class="label">Placa do Veículo:</span>
+                <span class="valor" th:text="${placaVeiculo}">Não aplicável</span>
+            </div>
+
+            <div class="item-resumo">
+                <span class="label">Data da Transação:</span>
+                <span class="valor" th:text="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm')}">Data
+                    Atual</span>
+            </div>
+
+            <div class="item-resumo total-final">
+                <span>Total Pago:</span>
+                <span
+                    th:text="${valorPago != null ? 'R$ ' + #numbers.formatDecimal(valorPago, 1, 2, 'COMMA') : 'R$ 0,00'}">R$
+                    0,00</span>
+            </div>
+        </div>
+
+        <a th:href="@{/home}" class="btn-home">Voltar para o Início</a>
+    </div>
+
+</body>
+
+</html>

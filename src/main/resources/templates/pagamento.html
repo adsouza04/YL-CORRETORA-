@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Pagamento | YL Seguros</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .caixa-pagamento {
+            max-width: 500px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .caixa-pagamento h2 {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        .caixa-pagamento p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .campo {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .campo label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .campo input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .campo input[readonly] {
+            background-color: #f9f9f9;
+            color: #004aad;
+            font-weight: bold;
+        }
+        .btn-pagar {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn-pagar:hover {
+            background-color: #004494;
+        }
+        .voltar {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container topo">
+            <h1>YL Seguros</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
+                    <li><a th:href="@{/login}" class="btn-destaque">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-pagamento">
+            <h2>Finalizar Pagamento</h2>
+            <p>Digite os dados do seu cartão de crédito.</p>
+
+            <form th:action="@{/pagamento/confirmar}" method="POST">
+                <div class="campo">
+                    <label>Nome no Cartão</label>
+                    <input type="text" name="nomeCartao" placeholder="João Almeida" required>
+                </div>
+
+                <div class="campo">
+                    <label>Número do Cartão</label>
+                    <input type="text" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
+                </div>
+
+                <div class="campo">
+                    <label>Validade</label>
+                    <input type="text" name="validade" placeholder="02/30" required>
+                </div>
+
+                <div class="campo">
+                    <label>CVV</label>
+                    <input type="text" name="cvv" placeholder="123" required>
+                </div>
+
+                <div class="campo">
+                    <label>Total da Proposta</label>
+                    <input type="text" th:value="${'R$ ' + total}" readonly>
+                </div>
+
+                <button type="submit" class="btn-pagar">Confirmar Pagamento</button>
+                
+                <a th:href="@{/carrinho}" class="voltar">Voltar ao Carrinho</a>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
