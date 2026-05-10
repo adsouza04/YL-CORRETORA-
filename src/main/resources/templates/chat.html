@@ -5,6 +5,137 @@
     <meta charset="UTF-8">
     <title>Suporte YL Seguros | Chat</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .chat-wrapper {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #002855;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .chat-header p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            /* Pattern sutil de fundo */
+        }
+
+        /* Estilo das Bolhas */
+        .msg {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .bot {
+            align-self: flex-start;
+            background: #ffffff;
+            color: #333;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .user {
+            align-self: flex-end;
+            background: #0046c0;
+            color: white;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Indicador de Digitação */
+        .typing-indicator {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            color: #666;
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Área de Input */
+        .chat-input-area {
+            padding: 15px;
+            background: #fdfdfd;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #userInput:focus {
+            border-color: #0046c0;
+        }
+
+        .btn-enviar-chat {
+            background: #ff9900;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-enviar-chat:hover {
+            background: #e68a00;
+        }
+
+        .btn-voltar-topo {
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +145,8 @@
             <h1>YL Seguros</h1>
             <nav>
                 <ul>
-                    <li><a th:href="@{/minha-conta}">⬅️ Voltar</a></li>
+                    <li><a th:href="@{/minha-conta}" class="btn-voltar-topo"><i class="fas fa-chevron-left"></i>
+                            Voltar</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,8 +154,10 @@
 
     <main class="chat-wrapper">
         <div class="chat-header">
-            <h3>🤖 Assistente YL</h3>
-            <p>Online agora</p>
+            <div>
+                <h3><i class="fas fa-robot"></i> Assistente YL</h3>
+            </div>
+            <p><i class="fas fa-circle" style="font-size: 8px;"></i> Online agora</p>
         </div>
 
         <div class="chat-messages" id="chatBox">
@@ -32,11 +166,15 @@
             </div>
         </div>
 
-        <div id="typing" class="typing-indicator">O robô está digitando...</div>
+        <div id="typing" class="typing-indicator">
+            <i class="fas fa-ellipsis-h fa-beat"></i> O robô está digitando...
+        </div>
 
         <form class="chat-input-area" id="chatForm">
             <input type="text" id="userInput" placeholder="Digite sua dúvida aqui..." autocomplete="off" required>
-            <button type="submit" class="btn-enviar-chat">Enviar</button>
+            <button type="submit" class="btn-enviar-chat">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </form>
     </main>
 
@@ -62,8 +200,9 @@
             if (userText) {
                 addMessage(userText, 'user');
                 input.value = '';
-                
+
                 typing.style.display = 'block';
+                chatBox.scrollTop = chatBox.scrollHeight;
 
                 setTimeout(() => {
                     typing.style.display = 'none';
@@ -71,7 +210,7 @@
 
                     if (textLower.includes("boleto") || textLower.includes("pagar") || textLower.includes("pagamento")) {
                         response = "Você pode baixar a segunda via do seu boleto na seção 'Minhas Apólices' dentro do seu painel.";
-                    } 
+                    }
                     else if (textLower.includes("apolice") || textLower.includes("contrato") || textLower.includes("documento")) {
                         response = "Sua apólice digital está disponível para download em formato PDF na sua conta.";
                     }
@@ -81,7 +220,7 @@
                     else if (textLower.includes("cancelar") || textLower.includes("cancelamento")) {
                         response = "Para cancelamentos, por favor, entre em contato com nosso setor de retenção pelo telefone (11) 4004-0000.";
                     }
-                    else if (textLower.includes("oi") || textLower.includes("olá") || textLower.includes("bom dia")) {
+                    else if (textLower.includes("oi") || textLower.includes("olá") || textLower.includes("bom dia") || textLower.includes("ola")) {
                         response = "Olá! Como posso ajudar você com seu seguro hoje?";
                     }
                     else if (textLower.includes("obrigado") || textLower.includes("valeu") || textLower.includes("obrigada")) {
@@ -92,7 +231,7 @@
                     }
 
                     addMessage(response, 'bot');
-                }, 1200);
+                }, 1500);
             }
         };
     </script>

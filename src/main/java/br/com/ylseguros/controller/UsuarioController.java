@@ -15,8 +15,8 @@ import br.com.ylseguros.repository.ApoliceRepository;
 import br.com.ylseguros.repository.ItemCarrinhoRepository;
 import br.com.ylseguros.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
-
 import java.util.List;
+
 
 @Controller
 public class UsuarioController {
@@ -125,4 +125,5 @@ public class UsuarioController {
             return "redirect:/meus-dados";
         }
     }
+
 }

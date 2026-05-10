@@ -3,64 +3,92 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YL Seguros | Pagamento Confirmado</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
     <style>
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         .container-sucesso {
-            max-width: 600px;
-            margin: 60px auto;
+            max-width: 550px;
+            margin: 80px auto;
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
             text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .icon-check {
-            width: 80px;
-            height: 80px;
-            background-color: #28a745;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            margin: 0 auto 20px;
+            font-size: 3.5rem;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
         }
 
         .titulo-sucesso {
-            color: #0046c0;
-            font-size: 2rem;
-            margin-bottom: 10px;
+            color: #002855;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
         }
 
         .resumo-compra {
             text-align: left;
-            background-color: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-            margin: 30px 0;
-            border: 1px solid #e9ecef;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border: 1px solid #edf2f7;
         }
 
         .resumo-compra h3 {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: #0046c0;
-            border-bottom: 2px solid #0046c0;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
         }
 
         .item-resumo {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             font-size: 1rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f4f8;
         }
 
         .item-resumo:last-of-type {
@@ -68,43 +96,56 @@
         }
 
         .label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .valor {
-            color: #333;
-            text-align: right;
+            color: #718096;
             font-weight: 500;
         }
 
+        .valor-dado {
+            color: #2d3748;
+            font-weight: 600;
+            text-align: right;
+        }
+
         .total-final {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #0046c0;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px dashed #0046c0 !important;
+            background-color: #f8fbff;
+            margin: 20px -30px -30px -30px;
+            padding: 25px 30px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .total-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #002855;
+        }
+
+        .total-valor {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0046c0;
         }
 
         .btn-home {
-            display: inline-block;
-            background-color: #0046c0;
+            display: block;
+            background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
             color: white;
-            padding: 15px 40px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(0, 86, 179, 0.2);
         }
 
         .btn-home:hover {
-            background-color: #003591;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 86, 179, 0.3);
         }
     </style>
 </head>
@@ -126,42 +167,42 @@
 
     <div class="container-sucesso">
         <div class="icon-check">✓</div>
-        <h1 class="titulo-sucesso">Pagamento Confirmado!</h1>
-        <p>Sua apólice está sendo gerada.</p>
+        <h1 class="titulo-sucesso">Tudo pronto!</h1>
+        <p class="subtitulo">Sua apólice foi emitida e o pagamento confirmado.</p>
 
         <div class="resumo-compra">
-            <h3>Resumo da Apólice</h3>
+            <h3>Detalhes da Contratação</h3>
 
             <div class="item-resumo">
-                <span class="label">Segurado:</span>
-                <span class="valor" th:text="${nomeCliente}">Nome do Cliente</span>
+                <span class="label">Segurado</span>
+                <span class="valor-dado" th:text="${nomeCliente}">João Almeida</span>
             </div>
 
             <div class="item-resumo">
-                <span class="label">Produto:</span>
-                <span class="valor" th:text="${nomeProduto}">Seguro Selecionado</span>
+                <span class="label">Plano Ativado</span>
+                <span class="valor-dado" th:text="${nomeProduto}">Premium</span>
             </div>
 
             <div class="item-resumo">
-                <span class="label">Placa do Veículo:</span>
-                <span class="valor" th:text="${placaVeiculo}">Não aplicável</span>
+                <span class="label">Placa do Veículo</span>
+                <span class="valor-dado" th:text="${placaVeiculo}">ABC-1234</span>
             </div>
 
             <div class="item-resumo">
-                <span class="label">Data da Transação:</span>
-                <span class="valor" th:text="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm')}">Data
-                    Atual</span>
+                <span class="label">Data e Hora</span>
+                <span class="valor-dado"
+                    th:text="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm')}">09/05/2026</span>
             </div>
 
-            <div class="item-resumo total-final">
-                <span>Total Pago:</span>
-                <span
-                    th:text="${valorPago != null ? 'R$ ' + #numbers.formatDecimal(valorPago, 1, 2, 'COMMA') : 'R$ 0,00'}">R$
-                    0,00</span>
+            <div class="total-final">
+                <span class="total-label">Total Pago</span>
+                <span class="total-valor" th:text="${valorPago != null ? 'R$ ' + valorPago : 'R$ 0,00'}">
+                    R$ 0,00
+                </span>
             </div>
         </div>
 
-        <a th:href="@{/home}" class="btn-home">Voltar para o Início</a>
+        <a th:href="@{/home}" class="btn-home">Ir para o Painel Inicial</a>
     </div>
 
 </body>

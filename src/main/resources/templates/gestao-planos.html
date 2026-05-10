@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YL Seguros - Gestão de Produtos</title>
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="adm-header">
+        <div class="container topo">
+            <h1>Administração</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/admin/painel}" class="btn-destaque">Voltar ao Painel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="adm-header-flex">
+            <h2><i class="fas fa-boxes"></i> Produtos Disponíveis</h2>
+            <a th:href="@{/admin/configurar/editar/0}" class="btn-destaque">
+                <i class="fas fa-plus"></i> Novo Produto
+            </a>
+        </div>
+
+        <table class="adm-tabela">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Valor Mensal</th>
+                    <th style="text-align: center;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${planos}">
+                    <td class="nome-produto-destaque" th:text="${p.nome}">Nome do Seguro</td>
+                    <td th:text="${p.categoria}">Categoria</td>
+                    <td th:text="${'R$ ' + #numbers.formatDecimal(p.valorMensal, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</td>
+                    <td style="text-align: center;">
+                        <a th:href="@{/admin/configurar/editar/{id}(id=${p.id})}" class="btn-tabela-editar">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+
+                        <a th:href="@{/admin/configurar/deletar/{id}(id=${p.id})}" class="btn-tabela-excluir"
+                            onclick="return confirm('Deseja realmente excluir este plano?')">
+                            <i class="fas fa-trash-alt"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(planos)}">
+                    <td colspan="4" style="padding: 40px; text-align: center; color: #999;">
+                        <i class="fas fa-info-circle"></i> Nenhum produto cadastrado no banco de dados.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="rodape-inferior">
+        <p>&copy; 2026 YL Seguros - Sistema Administrativo</p>
+    </footer>
+</body>
+
+</html>

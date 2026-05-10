@@ -3,8 +3,122 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login | YL Seguros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessar Conta | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        body {
+            background-color: #f4f7f9;
+        }
+
+        .login-container {
+            max-width: 420px;
+            margin: 80px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 40, 85, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: #002855;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            font-weight: 600;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .campo input {
+            padding: 14px;
+            border: 2px solid #edf2f7;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .campo input:focus {
+            border-color: #ff9900;
+            background-color: #fffdfa;
+            box-shadow: 0 0 0 4px rgba(255, 153, 0, 0.1);
+        }
+
+        .erro-mensagem {
+            background-color: #fff5f5;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 20px;
+            border-left: 4px solid #c53030;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #ff9900 0%, #e68a00 100%);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 153, 0, 0.4);
+        }
+
+        .login-footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .login-footer a {
+            color: #002855;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .link-home {
+            display: inline-block;
+            margin-top: 15px;
+            color: #718096 !important;
+            font-weight: 400 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,20 +129,30 @@
                 <ul>
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/planos}">Planos</a></li>
-                    <li><a th:href="@{/carrinho}">Carrinho</a></li>
+                    <li><a th:href="@{/carrinho}">🛒 Carrinho</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div class="caixa-form" style="max-width: 400px; margin: 50px auto;">
-            <h2 style="text-align: center;">Acesse sua Conta</h2>
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Bem-vindo de volta</h2>
+                <p>Acesse sua área exclusiva de cliente</p>
+            </div>
+
+            <div th:if="${erro}" class="erro-mensagem" th:text="${erro}"></div>
+            <div th:if="${param.erro}" class="erro-mensagem">
+                E-mail ou senha incorretos. Por favor, tente novamente.
+            </div>
 
             <form th:action="@{/efetuarLogin}" method="post">
+                <input type="hidden" name="origem" th:value="${param.origem}">
+
                 <div class="campo">
                     <label>E-mail</label>
-                    <input type="email" name="email" placeholder="email@exemplo.com" required>
+                    <input type="email" name="email" placeholder="exemplo@email.com" required autofocus>
                 </div>
 
                 <div class="campo">
@@ -36,18 +160,12 @@
                     <input type="password" name="senha" placeholder="Sua senha" required>
                 </div>
 
-                <p th:if="${erro}" th:text="${erro}" style="color: red; text-align: center;"></p>
-                <p th:if="${param.erro}" style="color: red; text-align: center;">E-mail ou senha incorretos.</p>
-
-                <button type="submit" class="btn-destaque" style="width: 100%; border: none; cursor: pointer;">
-                    Entrar
-                </button>
+                <button type="submit" class="btn-login">Acessar Minha Conta</button>
             </form>
 
-            <div style="margin-top: 20px; text-align: center; font-size: 0.9rem;">
-                <p>Ainda não tem conta? <a th:href="@{/cadastro}">Cadastre-se aqui</a></p>
-                <br>
-                <a th:href="@{/home}" style="color: #002855;">Voltar para Home</a>
+            <div class="login-footer">
+                <p>Ainda não é cliente? <a th:href="@{/cadastro}">Cadastre-se agora</a></p>
+                <a th:href="@{/home}" class="link-home">Voltar para a página inicial</a>
             </div>
         </div>
     </main>

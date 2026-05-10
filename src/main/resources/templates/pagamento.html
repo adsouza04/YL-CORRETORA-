@@ -1,76 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Pagamento | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #f4f7f9;
+            margin: 0;
+            font-family: sans-serif;
         }
+
+        /* Container principal com mais respiro vertical */
+        .container-pagamento {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px;
+            /* Aumentado para não colar no header/footer */
+        }
+
         .caixa-pagamento {
-            max-width: 500px;
-            margin: 60px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 550px;
+            /* Largura um pouco maior para respiro horizontal */
+            width: 100%;
+            background: #ffffff;
+            padding: 50px;
+            /* Padding interno generoso */
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 40, 85, 0.08);
         }
+
         .caixa-pagamento h2 {
-            margin-bottom: 5px;
-            font-size: 24px;
+            color: #002855;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            text-align: center;
         }
-        .caixa-pagamento p {
+
+        .instrucao {
             color: #666;
-            margin-bottom: 25px;
-            font-size: 14px;
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            /* Maior distância para o início do form */
         }
+
+        /* Espaçamento entre blocos de campos */
         .campo {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            /* Aumentado de 15px para 25px */
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            /* Espaço entre Label e Input */
         }
+
         .campo label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
         }
+
         .campo input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 15px;
+            /* Input mais alto e confortável */
+            border: 2px solid #edf2f7;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
-        .campo input[readonly] {
-            background-color: #f9f9f9;
-            color: #004aad;
-            font-weight: bold;
+
+        .campo input:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
         }
+
+        /* Grid para Validade e CVV com mais espaço */
+        .linha-dupla {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            /* Espaço entre as colunas */
+            margin-bottom: 25px;
+        }
+
+        .campo-total {
+            background-color: #f8fbff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed #bcd9ff;
+            margin: 30px 0;
+            /* Respiro extra para o valor total */
+        }
+
+        .campo-total input {
+            background: white;
+            color: #002855;
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: 800;
+            border-color: #bcd9ff;
+        }
+
         .btn-pagar {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 20px;
+            /* Botão maior e mais clicável */
             width: 100%;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
             cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 86, 179, 0.2);
+            transition: transform 0.2s;
         }
+
         .btn-pagar:hover {
-            background-color: #004494;
+            transform: translateY(-2px);
         }
+
         .voltar {
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            color: #718096;
             text-decoration: none;
-            color: #666;
-            font-size: 14px;
+            font-size: 0.95rem;
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -86,43 +151,65 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container-pagamento">
         <div class="caixa-pagamento">
-            <h2>Finalizar Pagamento</h2>
-            <p>Digite os dados do seu cartão de crédito.</p>
+            <h2>Pagamento Seguro</h2>
+            <p class="instrucao">Finalize sua contratação com tranquilidade.</p>
 
             <form th:action="@{/pagamento/confirmar}" method="POST">
                 <div class="campo">
-                    <label>Nome no Cartão</label>
-                    <input type="text" name="nomeCartao" placeholder="João Almeida" required>
+                    <label>Nome Completo no Cartão</label>
+                    <input type="text" name="nomeCartao" placeholder="Ex: JOÃO A SILVA" required>
                 </div>
 
                 <div class="campo">
                     <label>Número do Cartão</label>
-                    <input type="text" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
+                    <input type="text" id="numeroCartao" name="numeroCartao" placeholder="0000 0000 0000 0000"
+                        maxlength="19" required>
                 </div>
 
-                <div class="campo">
-                    <label>Validade</label>
-                    <input type="text" name="validade" placeholder="02/30" required>
+                <div class="linha-dupla">
+                    <div class="campo">
+                        <label>Validade</label>
+                        <input type="text" id="validade" name="validade" placeholder="MM/AA" maxlength="5" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>CVV</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                    </div>
                 </div>
 
-                <div class="campo">
-                    <label>CVV</label>
-                    <input type="text" name="cvv" placeholder="123" required>
+                <div class="campo-total">
+                    <div class="campo" style="margin-bottom: 0;">
+                        <label style="text-align: center;">Valor Total da Proposta</label>
+                        <input type="text" th:value="${'R$ ' + total}" readonly>
+                    </div>
                 </div>
 
-                <div class="campo">
-                    <label>Total da Proposta</label>
-                    <input type="text" th:value="${'R$ ' + total}" readonly>
-                </div>
+                <button type="submit" class="btn-pagar">Confirmar</button>
 
-                <button type="submit" class="btn-pagar">Confirmar Pagamento</button>
-                
                 <a th:href="@{/carrinho}" class="voltar">Voltar ao Carrinho</a>
             </form>
         </div>
     </main>
 
+    <script>
+        // Máscaras para melhorar a UX
+        document.getElementById('numeroCartao').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+        });
+
+        document.getElementById('validade').addEventListener('input', function (e) {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length > 2) v = v.substring(0, 2) + '/' + v.substring(2, 4);
+            e.target.value = v;
+        });
+
+        document.getElementById('cvv').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+        });
+    </script>
 </body>
+
 </html>

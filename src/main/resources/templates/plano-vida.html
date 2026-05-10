@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nossos Planos Vida | YL Seguros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguro de Vida | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
 </head>
 
@@ -22,98 +23,64 @@
     </header>
 
     <main class="container">
-        <div style="text-align: center; margin: 40px 0;">
-            <h2>Escolha a Proteção Ideal para sua Família</h2>
-            <p>Compare nossos planos e escolha o que melhor se adapta às suas necessidades.</p>
+        <div style="text-align: center; margin: 50px 0;">
+            <h2 style="color: #ff8c00; font-size: 2.2rem; font-weight: 700;">Escolha a Proteção Ideal para sua Família
+            </h2>
+            <p style="color: #666; font-size: 1.1rem;">Compare nossos planos e escolha o que melhor se adapta às suas
+                necessidades.</p>
         </div>
 
         <div class="grid-seguros">
-            <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">VIDA ON</span>
+            <div class="card" th:each="p : ${planos}">
+                <div>
+                    <div class="card-header-plano" style="background: #ff8c00;">
+                        <span th:text="${p.nome}">VIDA</span>
+                    </div>
+                    <h3 class="preco-plano">
+                        R$ <span
+                            th:text="${#numbers.formatDecimal(p.valorMensal, 1, 'POINT', 2, 'COMMA')}">0,00</span><small>/mês</small>
+                    </h3>
+                    <hr class="divisor-card">
                 </div>
-                <h3>R$ 89,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Cobertura para morte natural ou acidental</li>
-                    <li>✅ Assistência funeral</li>
-                    <li>✅ Cobertura por invalidez permanente total ou parcial por acidente</li>
-                    <li>❌ Despesas médicas</li>
-                    <li>❌ Telemedicina 24h</li>
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Vida On">
-                    <input type="hidden" name="preco" value="89.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
-            </div>
 
-            <div class="card">
-                <div
-                    style="background: #ff8c00; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white;">
-                    <span style="font-weight: bold;">VIDA DO SEU JEITO</span>
+                <div class="corpo-plano">
+                    <p th:text="${p.descricao}" class="coberturas-texto-dinamico"></p>
                 </div>
-                <h3>R$ 159,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Cobertura para morte natural ou acidental</li>
-                    <li>✅ Assistência funeral</li>
-                    <li>✅ Cobertura por invalidez permanente total ou parcial por acidente</li>
-                    <li>✅ Despesas médicas e odontológicas</li>
-                    <li>✅ Diária por incapacidade temporária</li>
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Vida Do Seu Jeito">
-                    <input type="hidden" name="preco" value="159.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
-            </div>
 
-            <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">VIDA PRESENTE</span>
+                <div class="footer-plano">
+                    <form th:action="@{/adicionar-item}" method="post">
+                        <input type="hidden" name="nome" th:value="${p.nome}">
+                        <input type="hidden" name="preco" th:value="${p.valorMensal}">
+                        <button type="submit" class="btn-planos">Selecionar Plano</button>
+                    </form>
                 </div>
-                <h3>R$ 249,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Cobertura para morte natural ou acidental</li>
-                    <li>✅ Segurado por toda a vida ou por tempo determinado</li>
-                    <li>✅ Cobertura por invalidez permanente permanente por acidente</li>
-                    <li>✅ Coberturas básicas nivelado para todas as idades</li>
-                    <li>✅ Diária por incapacidade temporária</li>
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Vida Presente">
-                    <input type="hidden" name="preco" value="249.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
             </div>
         </div>
     </main>
-</body>
 
-<footer>
-    <div class="container rodape-conteudo">
-        <div class="rodape-secao">
-            <h3>YL Seguros</h3>
-            <p>Protegendo o que é mais importante para você desde 2024.</p>
+    <footer>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Cuidando do futuro de quem você ama com seriedade e respeito.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a th:href="@{/home}">Página Inicial</a></li>
+                    <li><a th:href="@{/login}">Área do Cliente</a></li>
+                </ul>
+            </div>
+            <div class="rodape-secao">
+                <h4>Contato</h4>
+                <p>📞 0800 555 1234</p>
+                <p>📧 vida@ylseguros.com.br</p>
+            </div>
         </div>
-        <div class="rodape-secao">
-            <h4>Links Úteis</h4>
-            <ul>
-                <li><a th:href="@{/planos}">Nossos Planos</a></li>
-                <li><a th:href="@{/login}">Área do Cliente</a></li>
-            </ul>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
         </div>
-        <div class="rodape-secao">
-            <h4>Contato</h4>
-            <p>📞 (11) 9999-9999</p>
-            <p>📧 contato@ylseguros.com.br</p>
-        </div>
-    </div>
-    <div class="rodape-inferior">
-        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
-    </div>
-</footer>
+    </footer>
+</body>
 
 </html>

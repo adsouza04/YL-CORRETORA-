@@ -3,16 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dados da Proposta | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
     <style>
-        .caixa-form {
-            max-width: 900px !important;
-            margin: 40px auto;
-            padding: 30px;
+        .form-container {
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+        }
+
+        .sessao-titulo {
+            color: #002855;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .sessao-titulo:first-of-type {
+            margin-top: 0;
         }
 
         .grid-campos {
@@ -24,43 +41,65 @@
         .campo {
             display: flex;
             flex-direction: column;
-            margin-bottom: 5px;
+            gap: 8px;
         }
 
         .full-width {
             grid-column: span 2;
         }
 
-        /* Divisões de 3 colunas para CEP/Número/Complemento */
         .tres-colunas {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1.5fr 1fr 1.5fr;
             gap: 20px;
             grid-column: span 2;
         }
 
+        .campo label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+        }
+
         .campo input {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
+            padding: 14px;
+            border: 2px solid #edf2f7;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .campo input:focus {
+            border-color: #ff9900;
+            background-color: #fffdfa;
         }
 
         .campo input:read-only {
-            background-color: #f9f9f9;
-            color: #666;
+            background-color: #f7fafc;
+            color: #718096;
+            cursor: not-allowed;
+            border-color: #edf2f7;
         }
 
-        .btn-salvar {
-            background-color: #ff9800;
+        .btn-contratar {
+            background: linear-gradient(135deg, #ff9900 0%, #e68a00 100%);
             color: white;
-            padding: 15px;
+            padding: 20px;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 18px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 40px;
+            width: 100%;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2);
+        }
+
+        .btn-contratar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 153, 0, 0.3);
         }
 
         @media (max-width: 600px) {
@@ -74,12 +113,15 @@
             .tres-colunas {
                 grid-column: span 1;
             }
+
+            .form-container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
-
     <header>
         <div class="container topo">
             <h1>YL Seguros</h1>
@@ -93,34 +135,40 @@
     </header>
 
     <main class="container">
-        <div class="caixa-form">
-            <h2>📝 Quase lá! Preencha seus dados</h2>
-            <p>Informe seus dados para finalizar a contratação do seu seguro.</p>
-            <hr style="margin-bottom: 25px;">
+        <div class="form-container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="color: #002855; font-size: 2rem; margin-bottom: 10px;">📝 Finalize sua Proposta</h2>
+                <p style="color: #777;">Estamos a poucos passos de garantir a sua tranquilidade.</p>
+            </div>
 
             <form th:action="@{/cadastrar}" method="POST">
-                <div class="grid-campos">
 
+                <div class="sessao-titulo">👤 Dados Pessoais</div>
+                <div class="grid-campos">
                     <div class="campo full-width">
                         <label>Nome Completo</label>
-                        <input type="text" name="nome" placeholder="Ex: João Silva" required>
+                        <input type="text" name="nome" placeholder="Ex: João da Silva" required>
                     </div>
 
                     <div class="campo">
                         <label>CPF</label>
-                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
-                    </div>
-
-                    <div class="campo">
-                        <label>E-mail (Seu Login)</label>
-                        <input type="email" name="email" placeholder="seu@email.com" required>
+                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
                     </div>
 
                     <div class="campo">
                         <label>Telefone</label>
-                        <input type="text" name="telefone" placeholder="(11) 99999-9999" required>
+                        <input type="text" name="telefone" id="telefone" placeholder="(11) 99999-9999" maxlength="15"
+                            required>
                     </div>
 
+                    <div class="campo full-width">
+                        <label>E-mail (Seu Login de Acesso)</label>
+                        <input type="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+
+                <div class="sessao-titulo">📍 Onde você mora?</div>
+                <div class="grid-campos">
                     <div class="tres-colunas">
                         <div class="campo">
                             <label>CEP</label>
@@ -132,14 +180,13 @@
                         </div>
                         <div class="campo">
                             <label>Complemento</label>
-                            <input type="text" name="complemento" placeholder="Ex: Apt 12 / Bloco A">
+                            <input type="text" name="complemento" placeholder="Apt, Bloco, etc.">
                         </div>
                     </div>
 
                     <div class="campo full-width">
-                        <label>Logradouro (Rua/Av)</label>
-                        <input type="text" id="logradouro" name="logradouro" readonly
-                            placeholder="Preenchido automaticamente pelo CEP">
+                        <label>Logradouro (Rua/Avenida)</label>
+                        <input type="text" id="logradouro" name="logradouro" readonly placeholder="Aguardando CEP...">
                     </div>
 
                     <div class="campo">
@@ -151,22 +198,31 @@
                         <label>Cidade/UF</label>
                         <input type="text" id="cidade" name="cidade" readonly>
                     </div>
-
-                    <div class="campo full-width">
-                        <label>Crie uma Senha para Acesso</label>
-                        <input type="password" name="senha" placeholder="******" required>
-                    </div>
-
-                    <button type="submit" class="btn-salvar full-width">Finalizar e Contratar Seguro</button>
                 </div>
+
+                <div class="sessao-titulo">🔒 Segurança</div>
+                <div class="grid-campos">
+                    <div class="campo full-width">
+                        <label>Crie uma Senha para sua Área do Cliente</label>
+                        <input type="password" name="senha" placeholder="No mínimo 6 caracteres" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-contratar">
+                    FINALIZAR E CONTRATAR AGORA
+                </button>
             </form>
         </div>
     </main>
 
     <script>
+        // Função para preencher endereço automaticamente
         document.getElementById('cep').addEventListener('blur', function () {
             let cep = this.value.replace(/\D/g, '');
             if (cep.length === 8) {
+                const logradouroInput = document.getElementById('logradouro');
+                logradouroInput.placeholder = "Buscando...";
+
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
                     .then(response => response.json())
                     .then(dados => {
@@ -176,9 +232,39 @@
                             document.getElementById('cidade').value = dados.localidade + " - " + dados.uf;
                         } else {
                             alert("CEP não encontrado!");
+                            logradouroInput.placeholder = "Aguardando CEP...";
                         }
-                    });
+                    })
+                    .catch(() => alert("Erro ao buscar CEP."));
             }
+        });
+
+        // Máscara para CPF
+        document.getElementById('cpf').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+            if (value.length > 11) value = value.slice(0, 11);
+
+            // Aplica a formatação 000.000.000-00
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+            e.target.value = value;
+        });
+
+        // Máscara para Telefone (Celular e Fixo)
+        document.getElementById('telefone').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            // Aplica a formatação (00) 00000-0000 ou (00) 0000-0000
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else {
+                value = value.replace(/^(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+            }
+
+            e.target.value = value;
         });
     </script>
 </body>

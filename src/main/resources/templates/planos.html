@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nossos Planos | YL Seguros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos Auto | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
 </head>
 
@@ -22,89 +23,77 @@
     </header>
 
     <main class="container">
-        <div style="text-align: center; margin: 40px 0;">
-            <h2>Escolha a Proteção Ideal para o seu Carro</h2>
-            <p>Compare nossos planos e escolha o que melhor se adapta às suas necessidades.</p>
+        <div style="text-align: center; margin: 50px 0;">
+            <h2 style="color: #002855; font-size: 2.2rem; font-weight: 700;">Proteção para o seu Veículo</h2>
+            <p style="color: #666; font-size: 1.1rem;">Escolha a cobertura que melhor se adapta à sua rotina.</p>
         </div>
 
         <div class="grid-seguros">
             <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">BÁSICO</span>
+                <div>
+                    <div class="card-header-plano">
+                        <span>BÁSICO</span>
+                    </div>
+                    <h3 class="preco-plano">
+                        R$ 89,90<small>/mês</small>
+                    </h3>
+                    <hr class="divisor-card">
                 </div>
-                <h3>R$ 89,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Roubo e Furto</li>
-                    <li>✅ Assistência 24h</li>
-                    <li>❌ Danos a Terceiros</li>
-                </ul>
-                <a th:href="@{/carrinho/identificar(nome='Plano Básico', preco=89.90)}" class="btn-planos"
-                    style="text-decoration: none; display: block; text-align: center;">
-                    Selecionar
-                </a>
+
+                <div class="corpo-plano">
+                    <ul class="coberturas-lista">
+                        <li>✅ Roubo e Furto</li>
+                        <li>✅ Assistência 24h</li>
+                        <li>❌ Danos a Terceiros</li>
+                    </ul>
+                </div>
+
+                <div class="footer-plano">
+                    <a th:href="@{/carrinho/identificar(nome='Plano Básico', preco=89.90)}"
+                        class="btn-planos">Selecionar Plano</a>
+                </div>
             </div>
 
-            <div class="card">
-                <div
-                    style="background: #ff8c00; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white;">
-                    <span style="font-weight: bold;">ESSENCIAL</span>
+            <div class="card" th:each="p : ${planosNovos}">
+                <div>
+                    <div class="card-header-plano">
+                        <span th:text="${p.nome}">NOME</span>
+                    </div>
+                    <h3 class="preco-plano">
+                        R$ <span
+                            th:text="${#numbers.formatDecimal(p.valorMensal, 1, 'POINT', 2, 'COMMA')}">0,00</span><small>/mês</small>
+                    </h3>
+                    <hr class="divisor-card">
                 </div>
-                <h3>R$ 159,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Cobertura Compreensiva</li>
-                    <li>✅ Assistência 24h</li>
-                    <li>✅ Danos a Terceiros</li>
-                </ul>
-                <a th:href="@{/carrinho/identificar(nome='Plano Essencial', preco=159.90)}" class="btn-planos"
-                    style="text-decoration: none; display: block; text-align: center;">
-                    Selecionar
-                </a>
-            </div>
 
-            <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">COMPLETO</span>
+                <div class="corpo-plano">
+                    <p th:text="${p.descricao}" class="coberturas-texto-dinamico"></p>
                 </div>
-                <h3>R$ 249,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Todos os benefícios</li>
-                    <li>✅ Carro Reserva (30 dias)</li>
-                    <li>✅ KM Ilimitado</li>
-                </ul>
-                <a th:href="@{/carrinho/identificar(nome='Plano Completo', preco=249.90)}" class="btn-planos"
-                    style="text-decoration: none; display: block; text-align: center;">
-                    Selecionar
-                </a>
+
+                <div class="footer-plano">
+                    <a th:href="@{/carrinho/identificar(nome=${p.nome}, preco=${p.valorMensal})}"
+                        class="btn-planos">Selecionar Plano</a>
+                </div>
             </div>
         </div>
     </main>
 
     <footer>
-    <div class="container rodape-conteudo">
-        <div class="rodape-secao">
-            <h3>YL Seguros</h3>
-            <p>Protegendo o que é mais importante para você desde 2024.</p>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Consultoria especializada em seguros automotivos.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Atendimento</h4>
+                <p>📞 0800 777 9999</p>
+                <p>📧 auto@ylseguros.com.br</p>
+            </div>
         </div>
-        <div class="rodape-secao">
-            <h4>Links Úteis</h4>
-            <ul>
-                <li><a th:href="@{/planos}">Nossos Planos</a></li>
-                <li><a th:href="@{/login}">Área do Cliente</a></li>
-            </ul>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
         </div>
-        <div class="rodape-secao">
-            <h4>Contato</h4>
-            <p>📞 (11) 9999-9999</p>
-            <p>📧 contato@ylseguros.com.br</p>
-        </div>
-    </div>
-    <div class="rodape-inferior">
-        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
-    </div>
-</footer>
+    </footer>
 </body>
 
 </html>

@@ -21,6 +21,12 @@ public class UsuarioService {
     }
 
     public void salvarUsuario(Usuario usuario) {
+        Usuario usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
+        
+        if (usuario.getId() == null && usuarioExistente != null) {
+            throw new RuntimeException("Este e-mail já está cadastrado em nossa base de dados!");
+        }
+        
         usuarioRepository.save(usuario);
     }
 

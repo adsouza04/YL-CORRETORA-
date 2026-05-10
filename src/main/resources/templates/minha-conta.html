@@ -3,148 +3,87 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Conta | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
-    <style>
-        .dashboard-container {
-            display: flex;
-            max-width: 1100px;
-            margin: 40px auto;
-            gap: 20px;
-        }
-
-        .sidebar {
-            width: 250px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar h2 {
-            color: #0046c0;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            display: block;
-            padding: 8px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #0046c0;
-            color: white;
-        }
-
-        .conteudo-principal {
-            flex: 1;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .perfil-resumo {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-        }
-
-        .card-apolice {
-            border: 1px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s;
-        }
-
-        .card-apolice:hover {
-            transform: scale(1.01);
-            border-color: #0046c0;
-        }
-
-        .status-ativo {
-            background: #d4edda;
-            color: #155724;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body>
+<body style="background-color: #f8fafc;">
 
     <header>
         <div class="container topo">
             <h1>YL Seguros</h1>
             <nav>
                 <ul>
-                    <li><a th:href="@{/home}" class="btn-destaque" style="background-color: #ff9800;">Sair</a></li>
+                    <li><a th:href="@{/home}" class="btn-destaque" style="background-color: #ef4444;">Sair</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="dashboard-container">
-        <aside class="sidebar">
-            <h2>Olá, <span th:text="${usuarioNome}">Usuário</span></h2>
+    <main class="cli-dashboard-container">
+        <aside class="cli-sidebar">
+            <h2>Olá, <span th:text="${usuarioNome}">Usuário</span> 👋</h2>
             <ul>
-                <li><a th:href="@{/minha-conta}" class="active">📑 Minhas Apólices</a></li>
-                <a th:href="@{/meus-dados}" class="list-group-item list-group-item-action">
-                    <i class="bi bi-person-fill"></i>👤 Dados Pessoais
-                </a>
-                <li><a th:href="@{/ajuda}">❓ Ajuda e Suporte</a></li>
+                <li>
+                    <a th:href="@{/minha-conta}" class="active">
+                        <i class="fas fa-file-contract"></i> Minhas Apólices
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/meus-dados}">
+                        <i class="fas fa-user-circle"></i> Dados Pessoais
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/ajuda}">
+                        <i class="fas fa-headset"></i> Ajuda e Suporte
+                    </a>
+                </li>
             </ul>
         </aside>
 
-        <section class="conteudo-principal">
-            <div class="perfil-resumo">
-                <h2 style="color: #333;">Meus Seguros Ativos</h2>
-                <p>Gerencie suas coberturas e documentos aqui.</p>
+        <section class="cli-conteudo">
+            <div class="cli-perfil-header">
+                <h2>Meus Seguros Ativos</h2>
+                <p style="color: #64748b;">Abaixo estão os detalhes das suas coberturas contratadas.</p>
             </div>
 
-            <div th:each="apolice : ${apolices}" class="card-apolice">
-                <div>
-                    <strong style="display: block; font-size: 1.1rem;" th:text="${apolice.nomeProduto}">Seguro Auto
-                        Individual</strong>
-                    <span style="color: #777; font-size: 0.9rem;"
-                        th:text="'Vigência: ' + ${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')} + ' a 2027'">Vigência</span>
+            <div th:each="apolice : ${apolices}" class="cli-card-apolice">
+                <div class="cli-apolice-info">
+                    <strong th:text="${apolice.nomeProduto}">Seguro Individual</strong>
+                    <span style="color: #94a3b8; font-size: 0.9rem;"
+                        th:text="'Vigência: ' + ${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')} + ' a 2027'">
+                    </span>
+                    <br>
+                    <a th:href="@{/minha-conta/baixar-apolice}" class="btn-pdf">
+                        <i class="fas fa-file-pdf"></i> Baixar Apólice (PDF)
+                    </a>
                 </div>
+
                 <div style="text-align: right;">
-                    <span class="status-ativo">Ativo</span>
-                    <a href="#"
-                        style="display: block; margin-top: 10px; color: #0046c0; font-size: 0.85rem; text-decoration: none; font-weight: bold;">⬇
-                        Baixar PDF</a>
+                    <span class="cli-status-badge">
+                        <i class="fas fa-check"></i> ATIVO
+                    </span>
+                    <p style="margin-top: 10px; font-weight: bold; color: #1e293b;">
+                        R$ <span th:text="${#numbers.formatDecimal(apolice.valor, 1, 2, 'POINT')}">0.00</span>
+                    </p>
                 </div>
             </div>
 
-            <div th:if="${#lists.isEmpty(apolices)}" style="text-align: center; padding: 40px;">
-                <p style="color: #999; font-size: 1.1rem;">Você ainda não possui apólices cadastradas.</p>
-                <a th:href="@{/home}" style="color: #0046c0; text-decoration: underline;">Ver planos disponíveis</a>
+            <div th:if="${#lists.isEmpty(apolices)}" style="text-align: center; padding: 60px;">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: #e2e8f0; margin-bottom: 15px;"></i>
+                <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 20px;">Você ainda não possui seguros
+                    contratados.</p>
+                <a th:href="@{/home}" class="btn-destaque">Ver Planos Disponíveis</a>
             </div>
         </section>
     </main>
+
+    <footer class="rodape-inferior">
+        <p>&copy; 2026 YL Seguros - Área do Cliente Segura</p>
+    </footer>
 
 </body>
 

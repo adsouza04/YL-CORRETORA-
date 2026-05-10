@@ -3,43 +3,70 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel ADM | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <header>
+    <header class="adm-header">
         <div class="container topo">
             <h1>YL Seguros - Administração</h1>
             <nav>
                 <ul>
-                    <li><a th:href="@{/home}" class="btn-sair">Voltar para Home</a></li>
+                    <li><a th:href="@{/home}" class="btn-destaque">Voltar para Home</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div style="margin: 30px 0;">
+        <section class="adm-boas-vindas">
             <h2>Bem-vindo ao Painel de Controle 🔐</h2>
             <p>Gerenciamento estratégico do sistema.</p>
-        </div>
+        </section>
 
-        <div class="grid-seguros">
-            <div class="card">
-                <h3>👥 Clientes</h3>
+        <div class="adm-grid">
+            <div class="adm-card">
+                <div class="adm-icon-circle"><i class="fas fa-users"></i></div>
+                <h3>Clientes</h3>
                 <p>Visualize e gerencie todos os usuários do sistema.</p>
-                <a th:href="@{/admin/usuarios}" class="btn-controle"
-                    style="display: inline-block; text-decoration: none; text-align: center;">Listar Usuários</a>
+                <a th:href="@{/admin/usuarios}" class="adm-btn">Listar Usuários</a>
             </div>
 
-            <div class="card">
-                <h3>🛡️ Planos</h3>
+            <div class="adm-card">
+                <div class="adm-icon-circle"><i class="fas fa-file-contract"></i></div>
+                <h3>Planos</h3>
                 <p>Edite valores e coberturas dos seguros oferecidos.</p>
-                <button class="btn-controle">Configurar</button>
+                <a th:href="@{/admin/configurar}" class="adm-btn">Configurar</a>
             </div>
         </div>
     </main>
+
+    <footer>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Protegendo o que é mais importante para você desde 2024.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a th:href="@{/planos}">Nossos Planos</a></li>
+                    <li><a th:href="@{/login}">Área do Cliente</a></li>
+                </ul>
+            </div>
+            <div class="rodape-secao">
+                <h4>Contato</h4>
+                <p>📞 (11) 9999-9999</p>
+                <p>📧 contato@ylseguros.com.br</p>
+            </div>
+        </div>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -35,7 +35,7 @@ public class PagamentoController {
             Model model) {
 
         List<ItemCarrinho> itens = repository.findAll();
-        double total = itens.stream().mapToDouble(ItemCarrinho::getPreco).sum();
+        double totalCalculado = itens.stream().mapToDouble(ItemCarrinho::getPreco).sum();
 
         model.addAttribute("nome", nome);
         model.addAttribute("cpf", cpf);
@@ -43,9 +43,8 @@ public class PagamentoController {
         model.addAttribute("cep", cep);
         model.addAttribute("endereco", (rua != null ? rua : "") + ", " + (numero != null ? numero : ""));
         model.addAttribute("placa", placa);
-
         model.addAttribute("itens", itens);
-        model.addAttribute("total", total);
+        model.addAttribute("total", totalCalculado);
 
         return "pagamento";
     }
@@ -58,12 +57,17 @@ public class PagamentoController {
             HttpSession session,
             Model model) {
 
+        // 1. PRIMEIRO: Buscar os itens do banco de dados
         List<ItemCarrinho> itens = repository.findAll();
         String nomeProdutoExibicao = "Seguro Selecionado";
         String placaExtraida = placa;
+        Double valorFinal = total;
 
+        // 2. SEGUNDO: Calcular o valor ANTES de apagar os itens
         if (!itens.isEmpty()) {
-            String nomeCompleto = itens.get(0).getNomePlano();
+            ItemCarrinho primeiroItem = itens.get(0);
+            String nomeCompleto = primeiroItem.getNomePlano();
+
             if (nomeCompleto != null && nomeCompleto.contains(" (Placa:")) {
                 nomeProdutoExibicao = nomeCompleto.split(" \\(Placa:")[0];
                 if (placaExtraida == null || placaExtraida.isEmpty()) {
@@ -74,31 +78,38 @@ public class PagamentoController {
                 nomeProdutoExibicao = nomeCompleto;
             }
 
-            if (total == null) {
-                total = itens.get(0).getPreco();
+            // Se o 'total' vindo do formulário for nulo ou zero, calcula pela soma do
+            // carrinho
+            if (valorFinal == null || valorFinal == 0) {
+                valorFinal = itens.stream().mapToDouble(ItemCarrinho::getPreco).sum();
             }
         }
 
+        // 3. TERCEIRO: Processar a gravação da apólice
         String emailLogado = (String) session.getAttribute("usuarioLogado");
         String nomeUsuarioSessao = (String) session.getAttribute("nomeUsuario");
 
-        if (emailLogado != null) {
+        if (emailLogado != null && valorFinal != null && valorFinal > 0) {
             Apolice novaApolice = new Apolice();
             novaApolice.setUsuarioEmail(emailLogado);
             novaApolice.setNomeProduto(nomeProdutoExibicao);
             novaApolice.setPlaca((placaExtraida == null || placaExtraida.isEmpty()) ? "Não aplicável" : placaExtraida);
-            novaApolice.setValor(total);
-
+            novaApolice.setValor(valorFinal);
             apoliceRepository.save(novaApolice);
         }
 
+        // 4. QUARTO: Preparar a String formatada para o HTML
+        String valorExibicao = (valorFinal != null) ? String.format("%.2f", valorFinal).replace(".", ",") : "0,00";
+
+        // 5. QUINTO: Só agora podemos apagar os itens do carrinho com segurança
         repository.deleteAll();
 
-        model.addAttribute("nomeCliente", (nome != null) ? nome : nomeUsuarioSessao);
+        // Enviar para o Model
+        model.addAttribute("nomeCliente", (nome != null && !nome.isEmpty()) ? nome : nomeUsuarioSessao);
         model.addAttribute("nomeProduto", nomeProdutoExibicao);
         model.addAttribute("placaVeiculo",
                 (placaExtraida == null || placaExtraida.isEmpty()) ? "Não aplicável" : placaExtraida);
-        model.addAttribute("valorPago", total);
+        model.addAttribute("valorPago", valorExibicao);
 
         return "sucesso";
     }

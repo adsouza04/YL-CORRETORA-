@@ -29,6 +29,7 @@ public class LoginController {
     @PostMapping("/efetuarLogin")
     public String efetuarLogin(@RequestParam String email,
             @RequestParam String senha,
+            @RequestParam(required = false) String origem,
             HttpSession session,
             RedirectAttributes attr) {
 
@@ -41,6 +42,10 @@ public class LoginController {
 
             if ("ADM".equals(usuario.getPerfil())) {
                 return "redirect:/admin/painel";
+            }
+
+            if ("dashboard".equals(origem)) {
+                return "redirect:/minha-conta";
             }
 
             boolean temItensNoCarrinho = itemCarrinhoRepository.count() > 0;
@@ -65,6 +70,6 @@ public class LoginController {
 
     @GetMapping("/ajuda")
     public String suporte() {
-        return "chat"; 
+        return "chat";
     }
 }

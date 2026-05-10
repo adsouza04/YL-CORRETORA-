@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nossos Planos Residenciais | YL Seguros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos Residenciais | YL Seguros</title>
     <link rel="stylesheet" th:href="@{/estilo.css}">
 </head>
 
@@ -22,98 +23,63 @@
     </header>
 
     <main class="container">
-        <div style="text-align: center; margin: 40px 0;">
-            <h2>Escolha a Proteção Ideal para sua Casa</h2>
-            <p>Compare nossos planos e escolha o que melhor se adapta às suas necessidades.</p>
+        <div style="text-align: center; margin: 50px 0;">
+            <h2 style="color: #4B0082; font-size: 2.2rem; font-weight: 700;">Proteção para o seu Lar</h2>
+            <p style="color: #666; font-size: 1.1rem;">Tranquilidade para você e sua família no lugar que você mais ama.
+            </p>
         </div>
 
         <div class="grid-seguros">
-            <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">HABITUAL</span>
+            <div class="card" th:each="p : ${planos}">
+                <div>
+                    <div class="card-header-plano" style="background: #4B0082;">
+                        <span th:text="${p.nome}">RESIDENCIAL</span>
+                    </div>
+                    <h3 class="preco-plano">
+                        R$ <span
+                            th:text="${#numbers.formatDecimal(p.valorMensal, 1, 'POINT', 2, 'COMMA')}">0,00</span><small>/mês</small>
+                    </h3>
+                    <hr class="divisor-card">
                 </div>
-                <h3>R$ 89,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Incêndio e Explosão</li>
-                    <li>✅ Roubo de Bens</li>
-                    <li>❌ Quebra de Vidros </li>
-                    <li>❌ Danos Eletricos</li>
-                    </li>
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Residencial Habitual">
-                    <input type="hidden" name="preco" value="89.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
-            </div>
 
-            <div class="card">
-                <div
-                    style="background: #ff8c00; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white;">
-                    <span style="font-weight: bold;">VERANEIO</span>
+                <div class="corpo-plano">
+                    <p th:text="${p.descricao}" class="coberturas-texto-dinamico"></p>
                 </div>
-                <h3>R$ 159,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Roubo ou furto</li>
-                    <li>✅ Danos elétricos</li>
-                    <li>✅ Incêndio e explosão</li>
-                    <li>✅ Quebra de Vidros</li>
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Residencial Veraneio">
-                    <input type="hidden" name="preco" value="159.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
-            </div>
 
-            <div class="card">
-                <div style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #002855;">PREMIUM</span>
+                <div class="footer-plano">
+                    <form th:action="@{/adicionar-item}" method="post">
+                        <input type="hidden" name="nome" th:value="${p.nome}">
+                        <input type="hidden" name="preco" th:value="${p.valorMensal}">
+                        <button type="submit" class="btn-planos">Selecionar Plano</button>
+                    </form>
                 </div>
-                <h3>R$ 249,90<small>/mês</small></h3>
-                <hr>
-                <ul style="list-style: none; padding: 20px 0; text-align: left;">
-                    <li>✅ Roubo de bens</li>
-                    <li>✅ Equipamentos esportivos e instrumentos musicais</li>
-                    <li>✅ Joias e Relógios</li>
-                    <li>✅ Incêndio e explosão</li>
-                    <li>✅ Obras e objetos de arte</li>
-
-                </ul>
-                <form th:action="@{/adicionar-item}" method="post">
-                    <input type="hidden" name="nome" value="Residencial Premium">
-                    <input type="hidden" name="preco" value="249.90">
-                    <button type="submit" class="btn-planos">Selecionar</button>
-                </form>
             </div>
         </div>
     </main>
-</body>
 
-<footer>
-    <div class="container rodape-conteudo">
-        <div class="rodape-secao">
-            <h3>YL Seguros</h3>
-            <p>Protegendo o que é mais importante para você desde 2024.</p>
+    <footer>
+        <div class="container rodape-conteudo">
+            <div class="rodape-secao">
+                <h3>YL Seguros</h3>
+                <p>Protegendo o que é mais importante para você desde 2024.</p>
+            </div>
+            <div class="rodape-secao">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a th:href="@{/home}">Página Inicial</a></li>
+                    <li><a th:href="@{/login}">Área do Cliente</a></li>
+                </ul>
+            </div>
+            <div class="rodape-secao">
+                <h4>Contato</h4>
+                <p>📞 (11) 9999-9999</p>
+                <p>📧 contato@ylseguros.com.br</p>
+            </div>
         </div>
-        <div class="rodape-secao">
-            <h4>Links Úteis</h4>
-            <ul>
-                <li><a th:href="@{/planos}">Nossos Planos</a></li>
-                <li><a th:href="@{/login}">Área do Cliente</a></li>
-            </ul>
+        <div class="rodape-inferior">
+            <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
         </div>
-        <div class="rodape-secao">
-            <h4>Contato</h4>
-            <p>📞 (11) 9999-9999</p>
-            <p>📧 contato@ylseguros.com.br</p>
-        </div>
-    </div>
-    <div class="rodape-inferior">
-        <p>&copy; 2026 YL Seguros - Todos os direitos reservados.</p>
-    </div>
-</footer>
+    </footer>
+</body>
 
 </html>

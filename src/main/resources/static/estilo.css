@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    background: #f4f4f4;
+    background: #f8f9fa;
     color: #333;
     line-height: 1.6;
 }
@@ -18,12 +18,11 @@ body {
     padding: 20px;
 }
 
-/* Cabeçalho e Navegação */
 header {
     background-color: #004080;
     color: white;
     padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .topo {
@@ -31,26 +30,23 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    
 }
 
 nav ul {
     list-style: none;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 nav ul li {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     transition: 0.3s;
-    white-space: nowrap;
 }
 
 nav ul li a:hover {
@@ -59,250 +55,741 @@ nav ul li a:hover {
 
 .btn-destaque {
     background-color: #ff9900;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white !important;
+    margin-left: 20px;
+    transition: background 0.3s ease, transform 0.2s;
+    text-decoration: none;
+    font-weight: bold;
     display: inline-block;
 }
 
-/* Home e Cards */
+.btn-destaque:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px); /* Eleva levemente o botão */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .banner {
     text-align: center;
-    padding: 50px 20px;
+    padding: 80px 20px;
     color: white;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    background: linear-gradient(rgba(0, 64, 128, 0.8), rgba(0, 64, 128, 0.8));
-    
+    border-radius: 15px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #004080 0%, #002855 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-.grid-seguros {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: rgb(219 232 245 / 80%);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Formulários (Login e Cadastro) */
-.container-centralizado {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.caixa-form {
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
-.campo {
+.banner h2 {
+    font-size: 2.5rem;
     margin-bottom: 15px;
 }
 
-.campo label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    margin-top: 20px;
+.grid-home,
+.grid-seguros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-.campo input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Botões */
-.btn,
-.btn-planos,
-.btn-login,
-.btn-cadastro,
-.btn-carrinho,
-.btn-cliente,
-.btn-controle {
-    display: inline-block;
-    background-color: #0056b3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-    transition: 0.3s;
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.btn {
-    width: auto;
-    min-width: 120px;
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 64, 128, 0.1);
+    border-color: #004080;
 }
 
-.btn-planos {
-    width: 50%;
-}
-
-.btn-login,
-.btn-cadastro {
-    width: 100%;
+.card-icon {
+    font-size: 60px;
     margin-bottom: 20px;
 }
 
-.btn-carrinho,
-.btn-cliente,
-.btn-controle {
-    width: 30%;
+.card-header-plano {
+    background: #002855;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.btn-controle {
-    margin-top: 20px;
+.preco-plano {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.corpo-plano {
+    padding: 20px 10px;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.coberturas-texto-dinamico {
+    white-space: pre-line;
+    line-height: 1.8;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.coberturas-lista {
+    list-style: none;
+    line-height: 2.2;
+}
+
+.btn,
+.btn-planos {
+    display: block;
+    width: 100%;
+    background-color: #0056b3;
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn:hover,
-.btn-planos:hover,
-.btn-login:hover,
-.btn-cadastro:hover {
+.btn-planos:hover {
     background-color: #003d80;
 }
 
-hr {
-    margin: 20px 0;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-
-/* Estilização do Chat Robotizado */
-.chat-wrapper {
-    max-width: 500px;
-    margin: 40px auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 600px;
-}
-
-.chat-header {
-    background-color: #0046c0;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.msg {
-    max-width: 80%;
-    padding: 12px 16px;
-    border-radius: 15px;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.msg.bot {
-    background-color: #e9ecef;
-    color: #333;
-    align-self: flex-start;
-    border-bottom-left-radius: 2px;
-}
-
-.msg.user {
-    background-color: #0046c0;
-    color: white;
-    align-self: flex-end;
-    border-bottom-right-radius: 2px;
-}
-
-.chat-input-area {
-    padding: 20px;
-    background: white;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 10px;
-}
-
-.chat-input-area input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ddd;
+.alerta-msg {
+    padding: 15px;
+    margin-bottom: 20px;
     border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alerta-msg-sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alerta-msg-erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* --- Área do Cliente (Dashboard) --- */
+
+.cli-dashboard-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.cli-sidebar {
+    width: 280px;
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    height: fit-content;
+}
+
+.cli-sidebar h2 {
+    color: #004080;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f4f8;
+}
+
+.cli-sidebar ul {
+    list-style: none;
+}
+
+.cli-sidebar li {
+    margin-bottom: 10px;
+}
+
+.cli-sidebar a {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.cli-sidebar a:hover {
+    background: #f1f5f9;
+    color: #004080;
+}
+
+.cli-sidebar a.active {
+    background: #004080;
+    color: white;
+}
+
+.cli-conteudo {
+    flex: 1;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.cli-perfil-header {
+    margin-bottom: 35px;
+}
+
+.cli-perfil-header h2 {
+    color: #1e293b;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+/* Cards de Apólice */
+.cli-card-apolice {
+    border: 1px solid #e2e8f0;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.cli-card-apolice:hover {
+    border-color: #004080;
+    box-shadow: 0 5px 15px rgba(0, 64, 128, 0.08);
+    transform: translateY(-2px);
+}
+
+.cli-apolice-info strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #004080;
+    margin-bottom: 5px;
+}
+
+.cli-status-badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.cli-btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    color: #004080;
+    font-size: 0.9rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cli-btn-download:hover {
+    text-decoration: underline;
+}
+
+
+/* Prefixos ADM para não afetar as outras telas */
+.adm-header {
+    background-color: #002855;
+    padding: 15px 0;
+}
+
+.adm-boas-vindas {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin: 30px 0;
+    border-left: 6px solid #ff9900;
+}
+
+.adm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.adm-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adm-card:hover {
+    transform: translateY(-5px);
+    border-color: #004080;
+}
+
+.adm-icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #f0f4f8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    color: #004080;
+    font-size: 2rem;
+}
+
+.adm-btn {
+    display: inline-block;
+    background-color: #004080;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.adm-btn:hover {
+    background-color: #ff9900;
+}
+
+
+/* --- Gestão de Produtos (Exclusivo ADM) --- */
+
+.adm-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.adm-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    margin-bottom: 50px;
+}
+
+.adm-tabela thead {
+    background-color: #004080;
+    color: white;
+}
+
+.adm-tabela th {
+    padding: 18px 15px;
+    text-align: left;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.adm-tabela td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+.adm-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.adm-tabela tbody tr:hover {
+    background-color: #f9fbff;
+}
+
+.nome-produto-destaque {
+    font-weight: bold;
+    color: #004080;
+}
+
+/* Botões de Ação na Tabela */
+.btn-tabela-editar {
+    text-decoration: none;
+    padding: 8px 15px;
+    background: #004080;
+    color: white !important;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-tabela-editar:hover {
+    background: #002855;
+}
+
+.btn-tabela-excluir {
+    background-color: #cc0000;
+    margin-left: 8px;
+    text-decoration: none;
+    padding: 8px 15px;
+    color: white !important;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-tabela-excluir:hover {
+    background-color: #a30000;
+}
+
+
+/* --- Formulário de Configuração (Exclusivo ADM) --- */
+
+.adm-body-form {
+    background-color: #f4f7f9;
+    padding: 50px 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adm-card-form {
+    max-width: 550px;
+    width: 100%;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.adm-form-titulo {
+    color: #004080;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.adm-form-divisor {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin-bottom: 30px;
+}
+
+.adm-campo-grupo {
+    margin-bottom: 20px;
+}
+
+.adm-campo-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.adm-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
     outline: none;
 }
 
-.btn-enviar-chat {
+.adm-input:focus {
+    border-color: #004080;
+    box-shadow: 0 0 0 4px rgba(0, 64, 128, 0.1);
+}
+
+.adm-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.adm-btn-salvar {
+    width: 100%;
+    background-color: #ff9900;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.adm-btn-salvar:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+}
+
+.adm-link-cancelar {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.adm-link-cancelar:hover {
+    color: #cc0000;
+}
+
+/* --- Gestão de Clientes (Exclusivo ADM) --- */
+
+.adm-caixa-lista {
+    margin-top: 40px;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #edf2f7;
+}
+
+.adm-caixa-lista h2 {
+    color: #002855;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-adm {
+    background-color: #fff5f5;
+    color: #d9534f;
+    border: 1px solid #feb2b2;
+}
+
+.badge-user {
+    background-color: #f0fff4;
+    color: #28a745;
+    border: 1px solid #9ae6b4;
+}
+
+.adm-tabela-clientes {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    /* Cria um efeito de linhas separadas */
+    text-align: left;
+}
+
+.adm-tabela-clientes thead tr {
+    background-color: #0046c0;
+    color: white;
+}
+
+.adm-tabela-clientes th {
+    padding: 18px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.adm-tabela-clientes td {
+    padding: 15px 18px;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+    color: #4a5568;
+}
+
+/* Arredonda as pontas da tabela */
+.adm-tabela-clientes th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.adm-tabela-clientes th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.adm-tabela-clientes tr:hover td {
+    background-color: #f8fafc;
+}
+
+.adm-btn-ver-seguros {
+    background: #edf2ff;
+    color: #0046c0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #d0d7ff;
+}
+
+.adm-btn-ver-seguros:hover {
     background: #0046c0;
     color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 8px;
-    cursor: pointer;
+    transform: scale(1.05);
+}
+
+
+/* --- Detalhes de Seguros do Cliente (Exclusivo ADM) --- */
+
+.adm-container-seguros {
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.adm-cliente-titulo {
+    margin-bottom: 35px;
+    color: #002855;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.adm-cliente-nome {
+    color: #0046c0;
+    text-decoration: underline;
+}
+
+.adm-card-seguro {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-left: 6px solid #0046c0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.adm-card-seguro:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.1);
+}
+
+.adm-info-principal h3 {
+    margin: 0;
+    color: #0046c0;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+.adm-info-detalhes {
+    margin-top: 10px;
+}
+
+.adm-info-detalhes p {
+    margin: 5px 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adm-valor-tag {
     font-weight: bold;
-    transition: background 0.3s;
+    color: #2e7d32;
+    font-size: 1.2rem;
+    background: #e8f5e9;
+    padding: 5px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
-.btn-enviar-chat:hover {
-    background: #003591;
+.adm-status-ativo {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid #c8e6c9;
 }
 
-.typing-indicator {
-    font-size: 0.8rem;
-    color: #888;
-    padding: 5px 20px;
-    background: #f8f9fa;
-    display: none;
+.adm-btn-voltar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+    text-decoration: none;
+    color: #0046c0;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
+.adm-btn-voltar-link:hover {
+    color: #ff9900;
+}
 
-/* Estilização do Footer */
 footer {
     background-color: #001a38;
     color: white;
-    padding: 40px 0 0 0;
-    margin-top: 50px;
+    padding: 60px 0 0 0;
+    margin-top: 80px;
 }
 
 .rodape-conteudo {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    padding: 0 20px 30px 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
 }
 
 .rodape-secao h3,
 .rodape-secao h4 {
-    margin-bottom: 15px;
     color: #ff9900;
+    margin-bottom: 20px;
 }
 
 .rodape-secao ul {
@@ -310,67 +797,39 @@ footer {
 }
 
 .rodape-secao ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .rodape-secao a {
     color: #ccc;
     text-decoration: none;
-    transition: 0.3s;
-}
-
-.rodape-secao a:hover {
-    color: white;
 }
 
 .rodape-inferior {
-    background-color: #001a38;
     text-align: center;
-    padding: 15px 0;
-    font-size: 0.8rem;
+    padding: 20px;
+    background: #00142b;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
 }
-
-
 
 @media (max-width: 768px) {
     .topo {
         flex-direction: column;
         text-align: center;
+        gap: 20px;
     }
 
     nav ul {
-        margin-top: 15px;
         justify-content: center;
         padding: 0;
     }
 
     nav ul li {
-        margin: 5px 10px;
+        margin: 0 10px;
     }
 
-    .btn-carrinho,
-    .btn-cliente,
-    .btn-controle {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .btn-planos {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 5px 0;
+    .banner h2 {
+        font-size: 1.8rem;
     }
 }
