@@ -6,10 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "apolices")
-@Data // Gera automaticamente Getters, Setters, toString, etc. (requer o Lombok)
+@Data
 public class Apolice {
 
     @Id
@@ -17,20 +18,21 @@ public class Apolice {
     private Long id;
 
     private String usuarioEmail;
-
     private String nomeProduto;
-
     private String placa;
-
     private Double valor;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
     public Apolice() {
     }
 
-    public Apolice(String usuarioEmail, String nomeProduto, String placa, Double valor) {
+    public Apolice(String usuarioEmail, String nomeProduto, String placa, Double valor, LocalDate dataInicio, LocalDate dataFim) {
         this.usuarioEmail = usuarioEmail;
         this.nomeProduto = nomeProduto;
         this.placa = placa;
         this.valor = valor;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 }

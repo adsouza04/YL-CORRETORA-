@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -57,13 +58,13 @@ public class PagamentoController {
             HttpSession session,
             Model model) {
 
-        // 1. PRIMEIRO: Buscar os itens do banco de dados
+        // 1. Buscar os itens do banco de dados
         List<ItemCarrinho> itens = repository.findAll();
         String nomeProdutoExibicao = "Seguro Selecionado";
         String placaExtraida = placa;
         Double valorFinal = total;
 
-        // 2. SEGUNDO: Calcular o valor ANTES de apagar os itens
+        // 2. Calcular o valor ANTES de apagar os itens
         if (!itens.isEmpty()) {
             ItemCarrinho primeiroItem = itens.get(0);
             String nomeCompleto = primeiroItem.getNomePlano();
@@ -78,14 +79,12 @@ public class PagamentoController {
                 nomeProdutoExibicao = nomeCompleto;
             }
 
-            // Se o 'total' vindo do formulário for nulo ou zero, calcula pela soma do
-            // carrinho
             if (valorFinal == null || valorFinal == 0) {
                 valorFinal = itens.stream().mapToDouble(ItemCarrinho::getPreco).sum();
             }
         }
 
-        // 3. TERCEIRO: Processar a gravação da apólice
+        // 3. Processar a gravação da apólice
         String emailLogado = (String) session.getAttribute("usuarioLogado");
         String nomeUsuarioSessao = (String) session.getAttribute("nomeUsuario");
 
@@ -95,16 +94,17 @@ public class PagamentoController {
             novaApolice.setNomeProduto(nomeProdutoExibicao);
             novaApolice.setPlaca((placaExtraida == null || placaExtraida.isEmpty()) ? "Não aplicável" : placaExtraida);
             novaApolice.setValor(valorFinal);
+            novaApolice.setDataInicio(LocalDate.now());
+            novaApolice.setDataFim(LocalDate.now().plusYears(1));
             apoliceRepository.save(novaApolice);
         }
 
-        // 4. QUARTO: Preparar a String formatada para o HTML
+        // 4. Preparar a String formatada para o HTML
         String valorExibicao = (valorFinal != null) ? String.format("%.2f", valorFinal).replace(".", ",") : "0,00";
 
-        // 5. QUINTO: Só agora podemos apagar os itens do carrinho com segurança
+        // 5. Apagar os itens do carrinho
         repository.deleteAll();
 
-        // Enviar para o Model
         model.addAttribute("nomeCliente", (nome != null && !nome.isEmpty()) ? nome : nomeUsuarioSessao);
         model.addAttribute("nomeProduto", nomeProdutoExibicao);
         model.addAttribute("placaVeiculo",

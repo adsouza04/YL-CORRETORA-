@@ -14,7 +14,16 @@ import br.com.ylseguros.model.Apolice;
 import br.com.ylseguros.repository.ApoliceRepository;
 import br.com.ylseguros.repository.ItemCarrinhoRepository;
 import br.com.ylseguros.service.UsuarioService;
+
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.*;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.awt.Color;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -111,9 +120,7 @@ public class UsuarioController {
             if (usuario != null) {
                 usuario.setNome(nome);
                 usuario.setTelefone(telefone);
-
                 usuarioService.salvarUsuario(usuario);
-
                 session.setAttribute("nomeUsuario", nome);
                 attr.addFlashAttribute("mensagem", "Dados atualizados com sucesso!");
             }
@@ -126,4 +133,74 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/minha-conta/baixar-apolice")
+    public void baixarApolice(HttpSession session, HttpServletResponse response) throws IOException, DocumentException {
+        String email = (String) session.getAttribute("usuarioLogado");
+        String nomeReal = (String) session.getAttribute("nomeUsuario");
+
+        if (email == null) {
+            response.sendRedirect("/login");
+            return;
+        }
+
+        List<Apolice> apolices = apoliceRepository.findByUsuarioEmail(email);
+        Apolice apolice = apolices.isEmpty() ? null : apolices.get(0);
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=apolice.pdf");
+
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, response.getOutputStream());
+        document.open();
+
+        Font fontTitulo = new Font(Font.HELVETICA, 22, Font.BOLD, new Color(13, 71, 161));
+        Font fontSecao  = new Font(Font.HELVETICA, 13, Font.BOLD, Color.BLACK);
+        Font fontNormal = new Font(Font.HELVETICA, 11, Font.NORMAL, Color.DARK_GRAY);
+        Font fontBold   = new Font(Font.HELVETICA, 11, Font.BOLD, Color.BLACK);
+        Font fontVerde  = new Font(Font.HELVETICA, 11, Font.BOLD, new Color(21, 128, 61));
+        Font fontRodape = new Font(Font.HELVETICA, 9, Font.ITALIC, Color.GRAY);
+
+        Paragraph titulo = new Paragraph("YL Seguros", fontTitulo);
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        document.add(titulo);
+
+        Paragraph subtitulo = new Paragraph("Apólice de Seguro", new Font(Font.HELVETICA, 13, Font.NORMAL, Color.GRAY));
+        subtitulo.setAlignment(Element.ALIGN_CENTER);
+        document.add(subtitulo);
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("____________________________________________________________"));
+        document.add(new Paragraph(" "));
+
+        document.add(new Paragraph("Dados do Segurado", fontSecao));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Nome: " + (nomeReal != null ? nomeReal : "-"), fontNormal));
+        document.add(new Paragraph("E-mail: " + email, fontNormal));
+        document.add(new Paragraph(" "));
+
+        document.add(new Paragraph("Detalhes da Apólice", fontSecao));
+        document.add(new Paragraph(" "));
+
+        if (apolice != null) {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String vigencia = apolice.getDataInicio().format(fmt) + " a " + apolice.getDataFim().format(fmt);
+
+            document.add(new Paragraph("Produto: " + apolice.getNomeProduto(), fontBold));
+            document.add(new Paragraph("Vigência: " + vigencia, fontNormal));
+            document.add(new Paragraph("Valor mensal: R$ " + String.format("%.2f", apolice.getValor()), fontNormal));
+            document.add(new Paragraph("Status: ATIVO", fontVerde));
+        } else {
+            document.add(new Paragraph("Nenhuma apólice ativa encontrada.", fontNormal));
+        }
+
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("____________________________________________________________"));
+        document.add(new Paragraph(" "));
+
+        Paragraph rodape = new Paragraph("Documento gerado automaticamente | YL Seguros © 2026", fontRodape);
+        rodape.setAlignment(Element.ALIGN_CENTER);
+        document.add(rodape);
+
+        document.close();
+    }
 }
